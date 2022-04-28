@@ -1,0 +1,129 @@
+\vorlesung{1}{Sprachen, Wörter, Alphabet}{21.04.2022}
+
+\section*{Organisatorisches}
+
+\begin{itemize}
+    \item 2 Klausuren, freie Wahl der Teilnahme
+    \item Vorraussetzung für Klausurzulassung
+    \begin{itemize}
+        \item Erreichen von 50\% der Zettelpunkte
+        \item 1x in den Übungsgruppenvorrechnen
+    \end{itemize}
+    \item Zettelabgabe in 2er-Teams
+\end{itemize}
+
+\section{Überblick}
+
+\textbf{Ziel:} formales Berechnungsmodell $\rightarrow$ Probleme klassifizieren
+\begin{itemize}
+    \item Formalisierung für die Möglichkeiten eines Systems
+    \item Angabe von Verhaltensweisen durch Angabe endlich vieler Anweisungen
+    \item theoretisch idealisiertes Modell (z.B. unedlich viel Speicher)
+    \item Wichtig: Einschränkungen in Rechenzeit / Speicher (welche probleme lassen sich unter welchen Bedingungen noch berechnen?)
+    \item manches wird umständlich erscheinen, dies erlaubt aber auch Vereinfachungen an anderer Stelle
+    \item Idee: Problem $\approx$ Aufgabe
+    \begin{itemize}
+        \item Eingabe (Für uns oft Folge aus 0/1)
+        \item Ausgabe (wieder 0/1-Folge, wichtiger Speziallfall ist Ausgabe $\in$ $\{$"ja", "nein"$\}$)
+    \end{itemize}
+\end{itemize}
+
+\textbf{Inhalt:}
+\begin{itemize}
+    \item Turingmaschinen
+    \item Berechenbarkeit (effektiv) (Terminiert die Maschine?), \textbf{Berechenbarkeitstheorie}
+    \item Einschränkungen in Speicher und Zeit (Stichwort: Effizienz), \textbf{Komplexitätstheorie}
+    \item Endliche Automaten
+    \item P=NP Probleme
+    \item Zero knowledge proofs (Beweisen ohne Wissen weiterzugeben)
+    \item Nicht deterministische Modelle
+
+\end{itemize}
+
+\section{Grundlagen}
+
+\textbf{Notation und Begriffe}
+\begin{itemize}
+    \item $\mathbb{N}$ bezeichnet die Zahlen $\{1,2,...\}$
+    \item $\mathbb{N}_0 =\mathbb{N} \cup \{0\}$
+    \item für $n \in \mathbb{N}$ sei $n=\{1,....,n\}$ und $n_0 = n \cup{0}$
+    \item Für eine Menge $A$ und $n \in N_0$, sei $A^n = \{(a_1,....,a_n): a_i \in A$ $\forall i \in [1]\}$
+    \item für n $\in \mathbb{N}$ ist eine n-äre partielle Funktion $\Phi: A \rightarrow B$ eine Funktion mit dem $dom(\phi) \in A^n$ und dem Bild von $\Phi$ enthalten in $B$
+    \item für $a_1,...,a_n \in A$ bedeutet \\
+    $\Phi (a_1,...,a_n) \downarrow$ = $(a_1,...,a_n) \in dom (\Phi)$ \\
+    $\Phi(a_1,...,a_n)$ $\uparrow$ = $(a_1,....,a_n) \notin dom(\Phi)$
+
+    \item Falls $dom(\Phi)=A^n$, so heißt $\Phi$ total.
+
+    \item Eine \textbf{lineare Ordnung (totale Ordnung)} auf einer Menge $A$ ist eine Relation $\leqq A^2$, sodass die folgenden Eigenschaften erfüllt sind (wie für Relationen üblich verwenden wir Infixnotation, d.h. für $a,b \in A$ schreiben  $a \leqq b$ anstatt $(a,b)\leqq$
+    \begin{itemize}
+        \item (i) $a \leqq a$ für alle $a \in A$ (Reflexivität) 
+        \item (ii) $a \leqq b \land b \leqq a$ daraus folgt $a=b$ (Anti-Symmetrie)
+        \item (iii) $a \leqq b \land b \leqq c$ daraus folgt $a \leqq c$ (Transitivität)
+        \item (iv) $a \leqq b \lor b \leqq a$ für alle $(a,b)\in A$ (Totalität)
+    \end{itemize}
+\end{itemize}
+
+\textbf{Alphabete, Wörter und Sprachen} \\
+\textbf{Eingaben} und \textbf{Ausgaben} in unseren Berechnungsmodellen werden \textbf{Wörter} sein, wobei wir beliebige endliche Zeichenketten als Wörter zulassen.
+
+\begin{defn}{Alphabet}
+    Ein \textbf{Alphabet} ist eine nichtleere, endliche Menge $\Sigma$. Das Alphabet $\Sigma$ wird $|{\Sigma}|$-är genannt. Die Elemente von $\Sigma$ heißen Buchstaben oder Symbole.
+\end{defn}
+
+\begin{defn}{Wort}
+    Ein \textbf{Wort} über dem Alphabet $\Sigma$ ist eine endliche Folge von Symbolen in $\Sigma$. Die Länge eines Worts $w$ ist $|w|$. Für $i \in |w|$ bezeichnet 
+    $w(i)$ den $i$-ten Buchstaben in $w$. Für $a_1,..., a_n \in \Sigma$ bezeichnet $a_1, a_2,..., a_n$ das Wort $w$ der Länge $n$ mit $w(i) = a_i$. \\
+
+    Das leer Wort der Länge Null heißt \textbf{leeres Wort} und wird mit kleines $\lambda$ bezeichnet. Ein Wort $w$ der Länge 1 wird mit $w(1)$ identifiziert.
+\end{defn}
+
+\begin{defn}{Binäralphabet, Binärwort}
+    Das Alphabet $\{0,1\}$ heißt \textbf{Binäralphabet} und ein Wort über $\{0,1\}$ heißt \textbf{Binärwort}.
+\end{defn}
+
+\begin{defn}{Sprache}
+    Eine \textbf{Sprache} ist eine Menge von Wörtern (kann unendlich sein) über einem gemeinsamen Alphabet.
+\end{defn}
+
+\begin{defn}{grundlegende Sprachen}
+    Die Menge aller Wörter über $\Sigma$ bezeichnen wir mit $\Sigma^*$.
+    Für $n \in N_0$ schreiben wir: 
+    \begin{itemize}
+        \item $\Sigma^{\leqq n} = \{w \in \Sigma^* : |w| \leqq n \}$
+        \item $\Sigma^{\geqq n} = \{w \in \Sigma^* : |w| \geqq n \}$
+        \item  $\Sigma^{=n} = \Sigma^{\leqq n} \land \Sigma^{\geqq n}$
+        \item  $\Sigma^+ = \Sigma^{\geqq 1}$
+    \end{itemize}
+    Die Operation * nennt man auch Kleene-Stern.
+\end{defn}
+
+\begin{defn}{Verkettung} 
+    Für zwei Wörter $w_1$, $w_2$ ist die Verkettung $w_1 \circ w_2$ oder 
+    auch $w_1$$w_2$ von $w_1$ und $w_2$ definiert als $w_1 \circ w_2$ = $w_1(1),...,w_1(\vert w_1 \vert),w_2(1),...,w_2(\vert w_2 \vert))$ \\
+
+    Für ein Wort $w$ und $n \in N_0$ ist $w^n$ definiert als \\
+        \begin{align*}    
+            w := 
+            \begin{cases} 
+                \lambda, & \text{falls } n = 0 \\ 
+                w^n = w^{n-1} \circ L, &\text{sonst} 
+            \end{cases}
+        \end{align*} \\
+
+    Für Sprachen $L_1, L_2$ sei $L_1 \circ L_2$ oder auch $L_1L_2$ definiert durch  \\
+    $L_1 \circ L_2$ = $\{w_1w_2: w_1 \in L_1, w_2 \in L_2\}$ \\
+
+    Sei $L^n$ definiert durch \\
+        \begin{align*}  
+            L^n :=
+            \begin{cases} 
+                \lambda, & \text{falls } n = 0 \\ 
+                L^n = L^{n-1} \circ L, &\text{sonst} 
+            \end{cases}
+        \end{align*}\\
+
+    Für eine Sprache $L$ sei $L^*= \bigcup\limits_{n \in N_0} L^n$ und falls $w$ ein Wort ist, so sei $w$L = $w \circ L$ und $Lw = L \circ w$. \\
+        
+    \textbf{Konvention}: $.^n$ und $.^*$ bindet stärker als $\circ$ d.h. für Wörter $u,v$ ist $u^nv = (u^n)\circ v$.
+\end{defn}

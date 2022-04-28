@@ -1,0 +1,51 @@
+% Font & Spacing
+\renewcommand{\familydefault}{\sfdefault} % Sans-serif Font
+\onehalfspacing % set line spacing to 1.5
+\setlength\parindent{0pt}
+
+% Header & Footer
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ihead{ITH SoSe 22}
+\ohead{\headmark}
+\ofoot{\pagemark}
+\automark{section}
+\renewcommand*{\headfont}{\normalfont}
+
+% PDF Settings
+\hypersetup{
+pdftitle=\@title,
+pdfauthor=\@author
+}
+
+% Style for No. of Lecture
+\newcommand{\vorlesung}[3]{
+    \begin{center}
+        {\huge \color{blue} Vorlesung #1: #2} \\
+        #3
+    \end{center}
+}
+
+
+% Theoremstyle for Definition and Remarks
+\newtheoremstyle{ITH}
+{}{}{}{}{\bfseries}{}{\newline}
+{\colorbox{gray!30}{\makebox[\textwidth][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+% New Environments
+\theoremstyle{ITH}
+\newtheorem{vl@defn}{Definition }[section]
+\newtheorem{vl@bem}[vl@defn]{Bemerkung}
+
+\newenvironment{defn}[1]{
+    \begin{center}
+        \vspace{0.7em}
+        %\begin{tcolorbox}[width=4in, boxsep=0pt, left=0pt, right=0pt, top=2pt, arc=0pt, boxrule=0pt,toprule=1pt, colback=white]%%
+        \begin{minipage}{.85\columnwidth}
+            \begin{vl@defn}[#1]
+            \end{vl@defn}
+            \vspace{-1.3em}
+}{
+        \end{minipage}
+        \vspace{0.7em}
+    \end{center}
+}
