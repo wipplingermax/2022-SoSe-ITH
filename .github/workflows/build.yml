@@ -56,6 +56,6 @@ jobs:
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          files: main.pdf
+          files: ITH-Skript-SoSe-2022.pdf
           name: ${{steps.date.outputs.date}}
           tag_name: ${{steps.date.outputs.date}}

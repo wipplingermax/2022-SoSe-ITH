@@ -1,0 +1,11 @@
+## ignore build folder
+build
+*.pdf
+*.aux
+*.log
+*.out
+*.ids
+*.fls
+*.fdb_latexmk
+*.idx
+*.synctex.gz
