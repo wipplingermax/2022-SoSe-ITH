@@ -44,3 +44,4 @@ jobs:
         with:
           files: main.pdf
           name: ${{steps.date.outputs.date}}
+          tag_name: ${{steps.date.outputs.date}}
