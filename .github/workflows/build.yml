@@ -21,7 +21,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Get current date and time
+      - name: Get current date and time
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
+    
+     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -36,6 +41,6 @@ jobs:
      # Create Release
       - name: Create release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/release')
         with:
           files: main.pdf
+          name: ${{steps.date.outputs.date}}
