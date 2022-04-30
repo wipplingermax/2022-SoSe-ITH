@@ -1,0 +1,111 @@
+\vorlesung{2}{lexikographische Ordnung, Turingmaschinen}{26.04.2022}
+
+\begin{defn}{Präfix, Infix, Suffix}
+    \begin{itemize}
+        \item $u$ ist ein Präfix von $v$, kurz $u \sqsubset v$ falls es ein Wort $w$ gibt, sodass $v=uw$
+        \item $u$ ist ein infix von $v$,  falls es zwei Wörter $w_1,w2_2$ gibt, sodass $v=w_1uw_2$
+        \item $u$ ist ein Suffix von $v$, falls es ein Wort $w$ gibt, sodass $v=uw$
+    \end{itemize}
+\end{defn}
+
+\begin{defn}{präfixfrei}
+    Eine Sprache $L$ heißt \textbf{präfixfrei}, wenn $u \sqsubseteq v \rightarrow u = v$ für alle $u,v \in L$ gilt.
+\end{defn}
+
+\begin{defn}{Homomorphismus}
+    Für zwei Sprachen $L$ und $M$ heißt eine Funktion $\Phi :L\rightarrow M$ Homomorphismus von Sprachen, wenn $\Phi(uv) = \Phi(u)\Phi(v) \forall_{u,v} \in L$.
+\end{defn}
+
+\begin{defn}{längenlexikographische ordnung}
+    Ist $\Sigma$ ein Alphabet und $\leq$ eine lineare totale Ordnung auf $\Sigma$, so ist die zu $\leq$ dazugehörige längenlexikographische Ordnung $\leq_{llex}$ auf $\Sigma^*$ für die $u \leq_{llex} v$ genau dann für zwei verschiedene Wörter $u,v \in \Sigma^*$ gilt, wenn eine der folgenden Bedingungen gilt:
+    \begin{itemize}
+        \item $|u| < |v|$ 
+        \item $|u| = |v|$ minimal mit $u(i) \neq v(iv)$, so gilt $u(i) \leqq v(i)$
+    \end{itemize}
+    Konvention: $\Sigma = \{a_1,...,a_n\}$, so nehmen wir an, dass $a_1\leq...\leq a_n$ gilt.
+\end{defn}
+
+\begin{bem}
+    Sei $\Sigma$ ein Alphabet für alle Wörter $w \in \Sigma^*$ ist die Menge $\{v \in \Sigma^*:v\leq_{llex}w\}$ endlich. \\
+    Dies erlaubt aus einer Menge von Wörtern in $\Sigma^*$ das minimale bzgl. $\leq_{lleq}$ auszuwählen.
+\end{bem}
+
+\begin{bem}
+    Es bezeichne $bin:\mathbb{N}_0 \rightarrow \{0,1\}^*$ die Funktion, für die $bin(i)$ für alle $i \in \mathbb{N}_0$ das in längenlex. Reihenfolge $(i+1)$-te Wort
+\end{bem}
+
+\begin{bem}
+    Für alle $i \in \mathbb{N}_0$ ist $1 \circ bin(i)$ die Binärdrstellung von $i+1$. \\
+    Umgekehrt ist für ale $w \in \{0,1\}^*$ das $(2^{|w|} + \sum_{i \in |w|}w(i)2^{i-1})$-te Binärwort.
+\end{bem}
+
+\section{Turingmaschinen}
+%\\TODO: *Grafik von Lisa zu Turingmaschine*
+
+In \textbf{jedem Schritt}: 
+Zustand + eingelesene Symbole zu diesem Zeitpunkt $\rightarrow$
+\begin{itemize}
+    \item neuer Zustand
+    \item schreibt mit jedem Schreibkopf ein Symbol
+    \item bewegt die Köpfe um ein Feld nach links/rechts oder bleibt
+\end{itemize}
+
+\begin{defn}{Turingmaschine} 
+    Sei $k \in \mathbb{N}$. Eine k-Band-Turingmaschine (k-Tm) ist ein Tupel $M = (Q, \Sigma, \Gamma, \Delta,s,F)$, wobei:
+    \begin{itemize}
+        \item $Q$ eine endliche Menge, die Zustandsmenge;
+        \item $\Sigma$ das Eingabealphabet, ein Alphabet mit $\square \notin \Sigma$;
+        \item $\Gamma$ das Bandalphabet, ein Alphabet mit $\Sigma \in \Gamma$ und $\square \in \Gamma$
+        \item $\Delta \subset Q$ x $\Gamma^k$ x $\{L,S,R\}^k$ die Übergangsrelation
+        \item $s \in Q$ der Startzustand
+        \item $F \subset Q$ die Menge der akzeptierten Zustände.
+    \end{itemize}
+
+    \vspace{1em}
+
+    Das Symbol $\square$ heißt Blank/Leerzeichen. \\
+
+    Die Elemente von $\Delta$ heißen \textbf{Instruktionen}. \\
+    Für eine Instruktion $(q,a_1,...a_n,q',a_1',...,a_n',B_1,...,B_n)$ heißt \\
+    $(q,a_1,...,a_n)$ \textbf{Bedingungteil} und \\
+    $(q',a_1',...,a_n',B_1,...,B_n)$ \textbf{Answeisungsteil}. \\
+
+    Die Turingmaschine $M$ ist eine deterministische k-Band-TM, kurz k-DTM, wenn für alle $b \in Q$ x $\Gamma^k$ höchstens eine Instruktion $i \in \Delta$ mit Bedingungsteil $b$.
+    Eine 1-TM ist auch eine TM und eine 1-DTM ist auch eine DTM.
+\end{defn}
+
+\begin{defn}{Konfiguration}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
+
+    Eine Konfiguration von $M$ ist ein Tupel $C = (q,w_1,...,w_k,p_1,...,p_k) \in Q$ x $(\Gamma^*)^k$ x $\mathbb{N}^k$ mit $p_i \in \{| w_i |\} \forall i \in [h]$. \\
+
+    Die \textbf{Startkonfiguration} von $M$ zur Eingabe $(u_1,...,u_n)\in(\Sigma^*)^n$, wobei $n\in\mathbb{N}$ ist die Konfiguration $\text{start}_m(u_1,...,u_n)$ := $s, u,\square u_2,....,\square u_n \square, 1,...,1)$ \\
+
+    Die Konfiguration C ist eine \textbf{Stoppkonfiguation} von $M$, wenn es keine Instrunktion $i \in A$, mit Bedingungsteil $(q, u(p_1),...,u(p_k))$
+\end{defn}
+
+\begin{defn}{Nachfolgekonfiguration}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
+
+    Für Konfiguration $C=(q,w_1,...,w_k,p_1,...,p_k)$ und $C' = (q', w_1',...,w_k',p_1',...p_k')$ von $M$ ist $C'$, 
+    wenn es eine instruktion $(q, w_1(p_1),...,w_k(p_k),a_1',...,a_k',B_1,...,B_k) \in \Delta$ gibt, sodass
+
+    \begin{align*}  
+        w_i =
+        \begin{cases} 
+            \square a_i' w_i(2) ... w_i(| w_i |), & \text{falls }p_i = 1 \text{ und }  B_i = L \\ 
+            w_i(1) ... w_i(|w_i| -1) a_i' \square, & \text{falls }p_i = |w_i| \text{ und } B_i = R\\ 
+            w_i(1)...w_i(p_i -1) a_i' w_i(p_i +1)...w_i(| w_i |), &\text{sonst} \\
+        \end{cases}
+    \end{align*}
+
+    \begin{align*}  
+        p_i' =
+        \begin{cases} 
+            1, & \text{falls } p_i = 1  \text{ und } B_i = L \\ 
+            p_i -1, & \text{falls } pi \geq 2 und B_i = L \\
+            p_i, & \text{falls } B_i = S \\
+            p_i + 1, & \text{falls } B_i = R \\
+        \end{cases}
+    \end{align*}
+\end{defn}

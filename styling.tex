@@ -2,7 +2,7 @@
 \renewcommand{\familydefault}{\sfdefault} % Sans-serif Font
 \onehalfspacing % set line spacing to 1.5
 \setlength\parindent{0pt}
-
+\boldmath 
 
 % Header & Footer
 \pagestyle{scrheadings}
@@ -28,33 +28,37 @@ pdfauthor=\@author
 }
 
 
-% ColorBox-Environment
-\newenvironment{colbox}{%
-   \def\FrameCommand{\colorbox{colboxcolor}}%
-   \MakeFramed{\advance\hsize-\width \FrameRestore}}
- {\endMakeFramed}                  
-
-
 % Theoremstyle for Definition and Remarks
-\newtheoremstyle{ITH}
+\newtheoremstyle{tsdefn}
 {}{}{}{}{\bfseries}{}{\newline}
-{\colorbox{blue!100}{\color{white}\makebox[\textwidth-4em][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+{\colorbox{blue!100}{\color{white}\makebox[\linewidth][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
 % New Environments
-\theoremstyle{ITH}
+\theoremstyle{tsdefn}
 \newtheorem{vl@defn}{Definition }[section]
-\newtheorem{vl@bem}[vl@defn]{Bemerkung}
-
 \newenvironment{defn}[1]{  
     
     \begin{adjustwidth}{2em}{2em}
         \vspace{0.7em}
         \begin{vl@defn}[#1]
         \end{vl@defn}
-        \vspace{-1.3em}
+        \vspace{-1em}
         \definecolor{colboxcolor}{HTML}{F8E0E0}
+        \setlength{\textwidth}{10cm}
 
 }{
         \vspace{0.7em}
-    \end{adjustwidth}
-    
+    \end{adjustwidth}   
+}
+
+\newtheoremstyle{tsbem}
+{}{}{}{}{\bfseries}{}{\newline}{}
+\theoremstyle{tsbem}
+\newtheorem{vl@bem}[vl@defn]{Bemerkung }
+\newenvironment{bem}{    
+    \vspace{0.3em}
+    \begin{vl@bem}
+    \end{vl@bem}
+    \vspace{-2em}
+}{
+    \vspace{0.3em}
 }
