@@ -1,0 +1,27 @@
+\vorlesung{3}{Turingmaschinen}{26.04.2022}
+
+Es bezeichne $\rightarrow_M$ die Relation auf der Menge der Konfiguration von $M$, 
+sodass $C \rightarrow_M C'$ genau dann für zewi Konfigurationen von $M$ gilt wenn $C'$ nachfolgekonfiguration von $C$ ist. 
+
+\begin{defn}{Rechnung}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
+    
+    Eine \textbf{endliche partielle Rechnung} von $M$ ist eine endliche Folge
+    $C_1...C_n$ von Konfigurationen von $M$ mit $C_i \rightarrow_M C_{i+1}$ für alle $i \in [n-1]$ \\
+
+    Eine \textbf{unendliche partielle Rechnung} ist eine unendliche Folge $C_1,C_2,...$ von Konfigurationen von $M$
+    mit $C_i \rightarrow_M C_{i+1}$ für alle $i \in \mathbb{N}$ \\
+
+    Eine Rechnung von $M$ zur Eingabe $(w_1,...,w_n) \in (\Sigma^*)^M$, wobei $n \in \mathbb{N}$ ist eine endliche partielle Rechnung. \\
+    $\text{start}_M = C_1$, $C_2,...C_n$ bei der $C_n$ eine Stoppkonfiguation ist oder eine unendliche partielle Rechnung $\text{start}_M = C_1$, $C_2...$ 
+\end{defn}
+
+\begin{bem}
+    Ist $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-DTM, so gibt es für alle $n \in \mathbb{N}$ und $(w_1,...,w_n)$
+    genau eine Rechnung zur Eingabe $(w_1,...,w_n)$
+\end{bem}
+
+\begin{defn}{Total}
+    Eine k-DTM $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ terminiert bei Eingabe $(w_1,...,w_n) \in (\Sigma^*)^n$,
+    wobei $n \in \mathbb{N}$, wenn die Rechnung von $M$ zu Eingabe $(w_1,...,w_n)$ endlich ist.
+\end{defn}
