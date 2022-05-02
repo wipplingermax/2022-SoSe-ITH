@@ -23,5 +23,62 @@ sodass $C \rightarrow_M C'$ genau dann für zewi Konfigurationen von $M$ gilt we
 
 \begin{defn}{Total}
     Eine k-DTM $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ terminiert bei Eingabe $(w_1,...,w_n) \in (\Sigma^*)^n$,
-    wobei $n \in \mathbb{N}$, wenn die Rechnung von $M$ zu Eingabe $(w_1,...,w_n)$ endlich ist.
+    wobei $n \in \mathbb{N}$, wenn die Rechnung von $M$ zu Eingabe $(w_1,...,w_n)$ endlich ist. \\
+
+    Eine k-TM $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ ist total,  wenn für alle $n \in \mathbb{N}$ und 
+    $(w_1,...,w_n) \ in (\Sigma^*)^n$ alle Rechnungen von $M$ zur Eingabe $(w_1,...,w_n)$ endlich sind.
+\end{defn}
+
+\begin{defn}{akzeptierte Sprache}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
+    Eine Stoppfkonfiguration $(q,w_1,...,w_k,p_1,...,p_k)$ ist akzeptierend, wenn $q \in F$ gilt. \\
+
+    Die akzeptierte Sprach $L(M)$ von $M$ ist die Sptache über $\Sigma$, sodass für alle $w \in \Sigma^*$ genau dann $w \in L(M)$ gilt,
+    wenn es eine endliche Rechnung $C_1,...,C_N$ von $M$ zur Eingabe $w$ gibt, ber der $C_n$ eine akzeptierte Stoppkonfiguration ist.
+\end{defn}
+
+\begin{defn}{entscheidbar}
+    Eine Sprache $L$ ist entscheidbar, wenn es eine \textbf{totale} k-TM mit akzeptierter Sprache $L$ gibt.\\
+    Wir schreiben $REC$ für die Klasse der entscheidbaren Sprachen. 
+\end{defn}
+
+\begin{defn}{rekursivaufzählbar}
+    Eine Sprache $L$ ist rekursiv aufzählbar, wenn es eine k-TM mit akzeptierter Sprache $L$ gibt. \\
+    Wir schreiben $RE$ für die Klasse der aufzählbaren Sprachen.
+\end{defn}
+
+\begin{bem}
+    Jede entscheidbare Sprache ist rekursiv aufzählbar\\
+    Beispiele: $L=\{\lambda\}$ $\rightarrow$ immer nein; \textbf{alle endliche Sprachen}\\
+\end{bem}
+
+\begin{bem}
+    Alle endlichen Sprachen sind entscheidbar. \\
+    Beispiel: $L \subseteq \Sigma^*$ \\
+    M-KTM mit $L(M)=L$
+    M'-KTM mit $L(M') = \Sigma^* \backslash L$
+\end{bem}
+
+\begin{bem}
+    Eine Sprache $L$ über einem Alphabet $\Sigma$ ist genau dann entscheidbar, wenn $L$ und $\Sigma^*\backslash L$ rekursiv aufzählbar sind.
+\end{bem}
+
+\begin{defn}{Ausgabe}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM und $C=(q,w_1,...,w_k,p_1,..,p_k)$ eine Konfiguration von $M$. \\
+
+    Die Ausgabe $out_m(C)$ von $M$ bei Konfiguration $C$ ist das Präfix $w \praefix w_1(p_1)...w_k(|w_k|)$ maximaler Länge mit $w \in (\Gamma \backslash \{\square\})^*$
+\end{defn}
+
+\begin{defn}{berechnete Funktion}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-DTM und $n \in \mathbb{N}$. \\
+
+    Die von $M$ berechnete $n$-äre Funktion $\Phi_M$ ist die partielle Funktion $\Phi_M : (\Sigma^*)^n \leadsto (\Gamma\backslash\{\square\})^*$,
+    sodass für alle $(w_1,...,w_n) \in (\Sigma^*)^n$ folgendes gilt: \\
+
+    \begin{itemize}
+        \item Ist die Rechnung von $M$ zur Eingabe $(w_1,...,w_n)$ die endliche Rechnung $C_1,...,C_n$ so gilt $\Phi_M(w_1,...,w_n)=out_{M'}(C_M)$
+        \item Ist die Rechnung von $M$ zur Eingabe $(w_1,...,w_n)$ unendlich, so gilt $\Phi_M(w_1,...,w_n)\uparrow$
+    \end{itemize}
+
+    \textbf{Konvention}: Für $(w_1,...,w_n) \in \Sigma^*$ schreiben wir statt $\Phi(w_1,...,w_n)$ auch $M(w_1,...,w_n)$.
 \end{defn}
