@@ -1,0 +1,42 @@
+\vorlesung{4}{Thema der Vorlesung}{03.05.2022}
+
+\begin{defn}{partiell berechenbare Funktionen}
+    Für Alphabete $\Sigma, \Gamma$ und eine partielle Fuktion $\Phi : \Sigma^* \rightsquigarrow 
+    \Gamma$ ist $Phi$ partiell berechenbar, wenn es ein $k \ in \mathbb{N}$ und eine k-DTM $M$ gibt $\Phi_M = \Phi$. \\
+
+    Ist $\Phi$ total und partiell berechenbar, so ist $\Phi$ berechenbar. \\
+    %Wdh total -- jede Eingabe terminiert
+
+    Wir schreiben $RF$ für die Klasse der partiell berechenbaren partiellen Funktionen
+
+    Ist $\Phi : \mathbb{N}_0 \rightarrow \mathbb{N}$, so nennen wir $\Phi$ berechenbar,
+    falls $bin \circ \Phi \circ bin^-1$ berechenbar ist.
+\end{defn}
+
+\begin{defn}{charakteristische Funktion}
+    Sei $L$ eine Sprache über dem Alphabet $\Sigma$. \\
+    \begin{itemize}
+        \item Die charakteristische Funktion von $L$ als Sprache über $\Sigma$ ist Die
+              Funktion $1_L : \Sigma^* \rightarrow \{0,1\}$ mit $1_L(w) = 1$ $\forall w \in L$
+              und $1_L(w) = 0$ $\forall w \in \Sigma^* \backslash L$.
+        \item Die partielle funktion von $L$ als Sprache über $\Sigma$ ist die partielle Funktion
+              $X_L : \Sigma^* \leadsto \{1\}$ mit $X_L(w) = 1$ $\forall w \in L$ und $X_L = \uparrow$ $\forall w \in \Sigma^* \backslash L$
+    \end{itemize}
+\end{defn}
+
+\begin{bem}
+    Sei $L$ eine Sprache über $\Sigma$\\
+    \begin{itemize}
+        \item $L$ ist genau dann entscheidbar, wenn die char. Funktion von $L$ berechenbar ist.
+        \item $L$ ist genau dann rekursivaufzählbar, wenn die partiell charakteristische Funktion von $L$
+              partiell berechenbar ist.
+    \end{itemize}
+\end{bem}
+
+\textbf{Ziel}: Reduzierung der Komplexität verschiedener Parameter von Turingmaschinen. \\
+\textbf{Zweck}: Besser handhabar für Beweise von formalen Aussagen. \\
+
+\begin{defn}{normiert}
+    Eine TM $M = (Q, \Sigma, \Gamma, s, F)$ heißt \textbf{normiert}, wenn $Q = \{0,1,...,n\} = [n]$ für ein
+    $n \in \mathbb{N}_0, \Sigma = \{0,1\}, \Gamma = \{0,1,\square\}, s=0, F = \{\{0\}\}$.
+\end{defn}
