@@ -31,23 +31,22 @@ pdfauthor=\@author
 % Theoremstyle for Definition and Remarks
 \newtheoremstyle{tsdefn}
 {}{}{}{}{\bfseries}{}{\newline}
-{\colorbox{blue!100}{\color{white}\makebox[\linewidth][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+{\hspace{-1.3em}\colorbox{blue!100}{\color{white}\makebox[16.5cm][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
 % New Environments
 \theoremstyle{tsdefn}
 \newtheorem{vl@defn}{Definition }[section]
 \newenvironment{defn}[1]{  
-    
-    \begin{adjustwidth}{2em}{2em}
-        \vspace{0.7em}
+    \vspace{0.7em}
+    \colorlet{shadecolor}{blue!10}
+    \begin{shaded}
+        \vspace{-2em}
         \begin{vl@defn}[#1]
         \end{vl@defn}
         \vspace{-1em}
-        \definecolor{colboxcolor}{HTML}{F8E0E0}
-        \setlength{\textwidth}{10cm}
 
 }{
         \vspace{0.7em}
-    \end{adjustwidth}   
+    \end{shaded} 
 }
 
 \newtheoremstyle{tsbem}
@@ -56,9 +55,13 @@ pdfauthor=\@author
 \newtheorem{vl@bem}[vl@defn]{Bemerkung }
 \newenvironment{bem}{    
     \vspace{0.3em}
-    \begin{vl@bem}
-    \end{vl@bem}
-    \vspace{-2em}
+    \colorlet{shadecolor}{gray!10}
+    \begin{shaded}
+        \vspace{-0.5em}
+        \begin{vl@bem}
+        \end{vl@bem}
+        \vspace{-2em}
 }{
-    \vspace{0.3em}
+        \vspace{0.3em}
+    \end{shaded}
 }
