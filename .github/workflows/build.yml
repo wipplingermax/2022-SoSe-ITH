@@ -32,10 +32,6 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
       
-     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v3
-
       # Setup LaTeX-Environment and build
       - name: Setup latexmk and build
         uses: xu-cheng/texlive-action/full@v1
@@ -49,5 +45,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: ITH-Skript-SoSe-2022.pdf
-          name: ${{steps.date.outputs.date}}
+          name: Skript Stand ${{steps.date.outputs.date}}
           tag_name: release
