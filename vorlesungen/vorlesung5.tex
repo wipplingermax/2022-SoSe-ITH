@@ -1,0 +1,90 @@
+\vorlesung{5}{Thema der Vorlesung}{05.05.2022}
+
+\section{Berechenbarkeit}
+
+\textbf{Nächster Schritt}: \\
+Codierung von TM durch Zahlen (bspw. Binärwörter). Das ist quasi unser Quellcode für TM. \\
+Im Folgenden verwenden wir oft natürliche Zahlen $e \in \mathbb{N}$ oder $(e_1,...,e_n) \in \mathbb{N}$ 
+für ein $n \in \mathbb{N}$ als Eingaben für TM, was bedeutet, dass wir als Eingabe $bin(e)$ 
+bzw. $(bin(e_1),...,bin(e_n))$ nehmen. \\
+
+Insbesondere erlaubt es uns partiell berechenbare partielle Funktionen als partielle Funktionen von $\mathbb{N}^n \leadsto \mathbb{N}$.
+Zudem können Sprachen $L \subseteq \{0,1\}^*$ auch als Teilmenge von $\mathbb{N}$ auffassen.
+
+\begin{defn}{Code}
+    Wir betrachten eine Fuktion $code$ (mit geeignetem Definitionsbereich) und Zielmenge $\{0,1\}^*$, sodass folgendes gilt:
+    \begin{itemize}
+        \item Zunächst sei $code(L)=10, code(S)=00, code(R)=01$
+        \item Für eine Instruktion $I = (q,a,q',a',B) \in \mathbb{N}_0 \times \{0,1\} \times \mathbb{N}_0 \times \{0,1\} \times \{L,S,R\}$
+              einer normierten Tm sei $code(I) := 0^{\vert bin(q) \vert} 1bin(q) a 0^{\vert bin(q')\vert} 1bin(q') a' code(B)$
+        \item Für eine endliche Menge $\Delta \in \mathbb{N}_0 \times \{0,1\} \times \mathbb{N}_0 \times \{0,1\} \times \{L,S,R\}$ von Instuktionen einer
+              normierten TM und $i \in [\vert \Delta \vert]$ sei $code_i(\Delta)$ das in längenlex. Ordnung i-te Wort in 
+              $\{code(I) : I \in \Delta$ und es sei $code(\Delta) = code_1(\Delta),...,code_{\vert \Delta \vert}(\Delta)$
+        \item Für eine TM $M= (\{0,1,...,n\},\{0,1\},\{0,1,\square\},\square,0,\{0\})$ sei $code(M) := 0^{\vert bin(n) \vert} 1bin(n) code(\Delta)$ 
+    \end{itemize}
+\end{defn}
+
+Die Deteils der Codierung von TM sind weitgehend unwichtig. Relevant ist, dass es eine effektive Codierung 
+von TM durch Binärwörter $w \in \{0,1\}^*$ gibt, sodass folgendes gilt:
+\begin{itemize}
+    \item Jede normierte TM hat einen Code.
+    \item Die Sprache der Codes von TM ist entscheidbar. (Nicht trivial)
+    \item Codes können in geeignete Repäsentationen der durch sie codierten TM umgewandelt werden, die es 
+          insbesondere erlauben die codierten TM effetiv zu simulieren.
+    \item Geeignete Repräsentationen von TM könnten effektiv in ihre Codes umgewandelt werden.
+\end{itemize}
+
+\begin{defn}{Standardaufzählung}
+    Sei $\hat{w}_0, \hat{w}_1,...$ die Aufzählung aller Codes normierten DTM in längenlex. Ordnung. Für $e \in \mathbb(N)_0$ sei $M_e$
+    die durch $\hat{w}_e$ codierte DTM und für $n \in \mathbb{N}$ sei $\Phi_e^n : \mathbb{N}_0^n \leadsto \mathbb{N}_0$ die von $M_e$ 
+    berechnete n-äre partielle Funktion.\\
+    
+    Für $n \in \mathbb{N}$ sei $(\Phi_e^n)_{e \in \mathbb{N}_0}$ die \textbf{Standardaufzählung} der n-ären partiell berenbaren part. FKt. 
+    Für $n \in \mathbb{N}$ und eine part. berechneb. partielle Funktion $\Phi$
+    $\Phi : \mathbb{N}_0^n \leadsto \mathbb{N}_0$ heißt jede natürliche Zahl $e \in \mathbb{N}_0$ mit $\Phi_e^n = \phi$ index von $\phi$. \\
+    Ist $n$ klar aus dem kontext, so schreiben wir auch $\Phi_e$ anstatt $\Phi_e^n$. \\
+\end{defn}
+
+\begin{bem}
+    Für $n \in \mathbb{N}$ und jede partiell berechenbare Funktion $\phi : \mathbb{N}_0^n \leadsto \mathbb{N}_0$ gibt es \textbf{unendlich} viele Indices von $\phi$.
+\end{bem}
+
+\begin{defn}{$U$}
+    Es bezeichne $U$ die normierte DTM, die bei Eingabe $(e,x_1,...,x_n) \in \mathbb{N}_0^{n+1}$, wobei $n \in \mathbb{N}$ 
+    die normierte DTM $M_e$ bei Eingabe $(x_1,...,x_n)$ sumuliert und falls diese termiert die Ausgabe der Simulation ausgibt.
+\end{defn}
+
+\begin{defn}{universell}
+    Eine DTM heißt \textbf{universell}, wenn es für alle $n \in \mathbb{N}$ und alle part. berechneten 
+    partiellen Funktionen $\Phi : \mathbb{N}_0^n \leadsto \mathbb{N}_0$ ein $e \in \mathbb{N}_0$, sodass
+    $U(e,x_1,...,x_n) = \phi(x_1,...,x_n)$ für alle $x_1,...,x_n \in \mathbb{N}_0$ gilt. 
+\end{defn}
+
+\begin{bem}
+    Die DTM $U$ ist universell, denn für $e \in \mathbb{N_0}, n \in \mathbb{N}$ und $x_1,...,x_n \in \mathbb{N}_0$ gilt: \\
+    $\phi_U(e,x_1,...,x_n) = \Phi_e(x1,...,x_n)$. \\
+
+    Anschaulich spielen universelle TM (insbesondere $X$) die Rolle von Computern.
+\end{bem}
+
+In formalen Konstruktionen ist es oft hilfreich, dass es für jede (n+1)-äre partielle Funktion effektiv in eine n-äre
+Funktion umgewandelt werden kann.
+
+\begin{satz}{$S^m_n$-Theorem, Kleene}
+    Für alle $n,m \in \mathbb{N}$ eine \textbf{berechnbare Funktion} $S^m_n : \mathbb{N}_0^{m+1} \rightarrow \mathbb{N}_0$ mit \\
+    $\Phi^{m+n}_e(x_1,...,x_m,y_1,...,y_n) = \Phi_{s^m_n(e,x_1,x_n)}(y_1,...y_n)$ für alle $e,x_1,...,x_m,y_1,...y_n$ \\
+
+    \textbf(Beweis):\\
+    Fixire $m,n$. \\
+    Betrachte die DTM $S$, die bei Eingabe $(e,x_1,...,x_n) \in \mathbb{N}^{m+1}_0$ wie folgt verfährt:
+    \begin{itemize}
+        \item Zunächst bestimmt $S$ den Code von $M_e$.
+        \item Der Code von $M_e$ wir dann in einem Code einer normierten TM umgewandlet,
+              die zunächst $x_1 \square x_2 \square ... \square x_m \square$ links neben
+              die Eingabe schreibt und den Kopf auf das erste Feld links neben dem beschriebenen
+              Bandteil bewegt und dann wie $M_e$ arbeitet.
+        \item Der Code von $M$ wird ausgegeben und bestimmt an welcher Stelle der Standardaufzählung
+              der Code auftaucht.
+    \end{itemize}
+    Sei $s^m_n$ die von $S$ berechnete (m+1)-äre Funktion. Dann ist $s^m_n$ wie gewünscht. $\square$
+\end{satz}

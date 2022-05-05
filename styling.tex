@@ -65,3 +65,24 @@ pdfauthor=\@author
         \vspace{0.3em}
     \end{shaded}
 }
+
+
+\newtheoremstyle{tssatz}
+{}{}{}{}{\bfseries}{}{\newline}
+{\hspace{-1.3em}\colorbox{teal!100}{\color{white}\makebox[16.5cm][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+% New Environments
+\theoremstyle{tssatz}
+\newtheorem{vl@satz}[vl@defn]{Satz }
+\newenvironment{satz}[1]{  
+    \vspace{0.7em}
+    \colorlet{shadecolor}{teal!10}
+    \begin{shaded}
+        \vspace{-2em}
+        \begin{vl@satz}[#1]
+        \end{vl@satz}
+        \vspace{-1em}
+
+}{
+        \vspace{0.7em}
+    \end{shaded} 
+}
