@@ -32,6 +32,10 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
       
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+     
       # Setup LaTeX-Environment and build
       - name: Setup latexmk and build
         uses: xu-cheng/texlive-action/full@v1
@@ -39,8 +43,18 @@ jobs:
           run: |
             apk add make
             make   
-     
-     # Create Release
+
+      # Delete old releases
+      - name: Delete old releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+         keep_latest: 0
+        
+    
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
+
+     # Create release
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
