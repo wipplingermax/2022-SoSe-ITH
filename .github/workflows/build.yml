@@ -30,7 +30,9 @@ jobs:
       # Get current date and time
       - name: Get current date and time
         id: date
-        run: TZ=":Europe/Berlin" echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
+        run: |
+          export TZ='Europe/Berlin'
+          echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
       
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
