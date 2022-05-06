@@ -30,20 +30,14 @@ jobs:
       # Get current date and time
       - name: Get current date and time
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
-    
-      # Create tag for release
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{steps.date.outputs.date}}
-    
-     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        run: |
+          export TZ='Europe/Berlin'
+          echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
+      
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
         uses: actions/checkout@v3
-
+     
       # Setup LaTeX-Environment and build
       - name: Setup latexmk and build
         uses: xu-cheng/texlive-action/full@v1
@@ -51,11 +45,19 @@ jobs:
           run: |
             apk add make
             make   
-     
-     # Create Release
+
+      # Delete old releases
+      - name: Delete old releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+          keep_latest: 0 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+     # Create release
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           files: ITH-Skript-SoSe-2022.pdf
-          name: ${{steps.date.outputs.date}}
-          tag_name: ${{steps.date.outputs.date}}
+          name: Skript Stand ${{steps.date.outputs.date}}
+          tag_name: release
