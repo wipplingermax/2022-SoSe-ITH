@@ -53,10 +53,13 @@ sodass $C \rightarrow_M C'$ genau dann für zewi Konfigurationen von $M$ gilt we
 \end{bem}
 
 \begin{bem}
-    Alle endlichen Sprachen sind entscheidbar. \\
-    Beispiel: $L \subseteq \Sigma^*$ \\
-    M-KTM mit $L(M)=L$
-    M'-KTM mit $L(M') = \Sigma^* \backslash L$
+    Alle endlichen Sprachen sind entscheidbar.\\
+    Beispiele:
+    \begin{enumerate}
+        \item $L \subseteq \Sigma^*$
+        \item M-KTM mit $L(M)=L$ \\
+              M'-KTM mit $L(M') = \Sigma^* \backslash L$
+    \end{enumerate}
 \end{bem}
 
 \begin{bem}
@@ -64,7 +67,7 @@ sodass $C \rightarrow_M C'$ genau dann für zewi Konfigurationen von $M$ gilt we
 \end{bem}
 
 \begin{defn}{Ausgabe}
-    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM und $C=(q,w_1,...,w_k,p_1,..,p_k)$ eine Konfiguration von $M$. \\
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM und $C=(q,w_1,...,w_k,p_1,...,p_k)$ eine Konfiguration von $M$. \\
 
     Die Ausgabe $out_m(C)$ von $M$ bei Konfiguration $C$ ist das Präfix $w \praefix w_1(p_1)...w_k(|w_k|)$ maximaler Länge mit $w \in (\Gamma \backslash \{\square\})^*$
 \end{defn}
@@ -72,7 +75,8 @@ sodass $C \rightarrow_M C'$ genau dann für zewi Konfigurationen von $M$ gilt we
 \begin{defn}{berechnete Funktion}
     Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-DTM und $n \in \mathbb{N}$. \\
 
-    Die von $M$ berechnete $n$-äre Funktion $\Phi_M$ ist die partielle Funktion $\Phi_M : (\Sigma^*)^n \leadsto (\Gamma\backslash\{\square\})^*$,
+    Die von $M$ berechnete $n$-äre Funktion $\Phi_M$ ist die partielle Funktion \\
+    $\Phi_M : (\Sigma^*)^n \leadsto (\Gamma\backslash\{\square\})^*$,
     sodass für alle $(w_1,...,w_n) \in (\Sigma^*)^n$ folgendes gilt: \\
 
     \begin{itemize}

@@ -13,7 +13,7 @@
 \end{defn}
 
 \begin{defn}{Homomorphismus}
-    Für zwei Sprachen $L$ und $M$ heißt eine Funktion $\Phi :L\rightarrow M$ Homomorphismus von Sprachen, wenn $\Phi(uv) = \Phi(u)\Phi(v) \forall_{u,v} \in L$.
+    Für zwei Sprachen $L$ und $M$ heißt eine Funktion $\Phi :L\rightarrow M$ Homomorphismus von Sprachen, wenn $\Phi(uv) = \Phi(u)\Phi(v) \, \forall_{u,v} \in L$.
 \end{defn}
 
 \begin{defn}{längenlexikographische ordnung}
@@ -77,7 +77,7 @@ Zustand + eingelesene Symbole zu diesem Zeitpunkt $\rightarrow$
 \begin{defn}{Konfiguration}
     Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
 
-    Eine Konfiguration von $M$ ist ein Tupel $C = (q,w_1,...,w_k,p_1,...,p_k) \in Q$ x $(\Gamma^*)^k$ x $\mathbb{N}^k$ mit $p_i \in \{| w_i |\} \forall i \in [h]$. \\
+    Eine Konfiguration von $M$ ist ein Tupel $C = (q,w_1,...,w_k,p_1,...,p_k) \in Q$ x $(\Gamma^*)^k$ x $\mathbb{N}^k$ mit $p_i \in \{| w_i |\} \, \forall i \in [h]$. \\
 
     Die \textbf{Startkonfiguration} von $M$ zur Eingabe $(u_1,...,u_n)\in(\Sigma^*)^n$, wobei $n\in\mathbb{N}$ ist die Konfiguration $\text{start}_m(u_1,...,u_n)$ := $s, u,\square u_2,....,\square u_n \square, 1,...,1)$ \\
 
@@ -103,7 +103,7 @@ Zustand + eingelesene Symbole zu diesem Zeitpunkt $\rightarrow$
         p_i' =
         \begin{cases} 
             1, & \text{falls } p_i = 1  \text{ und } B_i = L \\ 
-            p_i -1, & \text{falls } pi \geq 2 und B_i = L \\
+            p_i -1, & \text{falls } pi \geq 2 \text{ und } B_i = L \\
             p_i, & \text{falls } B_i = S \\
             p_i + 1, & \text{falls } B_i = R \\
         \end{cases}

@@ -1,8 +1,8 @@
 \vorlesung{4}{partiell berechenbare Funktionen, Normierung}{03.05.2022}
 
 \begin{defn}{partiell berechenbare Funktionen}
-    Für Alphabete $\Sigma, \Gamma$ und eine partielle Fuktion $\Phi : \Sigma^* \rightsquigarrow 
-    \Gamma$ ist $Phi$ partiell berechenbar, wenn es ein $k \ in \mathbb{N}$ und eine k-DTM $M$ gibt $\Phi_M = \Phi$. \\
+    Für Alphabete $\Sigma, \Gamma$ und eine partielle Fuktion $\Phi : \Sigma^* \leadsto
+    \Gamma$ ist $\Phi$ partiell berechenbar, wenn es ein $k \in \mathbb{N}$ und eine k-DTM $M$ gibt $\Phi_M = \Phi$. \\
 
     Ist $\Phi$ total und partiell berechenbar, so ist $\Phi$ berechenbar. \\
     %Wdh total -- jede Eingabe terminiert
@@ -41,24 +41,23 @@
     $n \in \mathbb{N}_0, \Sigma = \{0,1\}, \Gamma = \{0,1,\square\}, s=0, F = \{\{0\}\}$.
 \end{defn}
 
-TM lassen sich in normierte deterministische TM umwandeln \\
+\textbf{TM lassen sich in normierte deterministische TM umwandeln} \\
+
 Die wesentlichen Schritte sind wie folgt: \\
 Alle TM mit $\Sigma=\{0,1\}$ und Ausgabe in $\{0,1\}$ lassen sich in det. TM umwandeln,
 die die gleiche Sprache erkennen und die gleiche partielle Funktion berechnen. \\
 
-1. Nicht-det. TM  lassen sich in det. TM umwandeln indem wir die verschiedenen Wahlen innerhalb 
-unserer Rechnung "nacheinander" durchgehen (Breitensuche). \\
-
-%% Abbildung 2
-
-2. Reduktion von $k$ Bändern auf ein Band mittels Spurentechnik. \\
-
-%% Abbildung 3
-
-3. Das Bandalphabet lässt sich durch $\{0,1,\square\}$ ersetzen, indem man mehrere nebeneinander
-liegende Felder für ein einzelnes benutzt. Da die TM immer nur ein Feld liest, muss das gelesene Symbol sich im Zustand gemerkt werden.
-
-%% Abbildung 4
+\begin{enumerate}
+    \item Nicht-det. TM  lassen sich in det. TM umwandeln indem wir die verschiedenen Wahlen innerhalb 
+          unserer Rechnung "nacheinander" durchgehen (Breitensuche).
+          % Abbildung 2
+    \item Reduktion von $k$ Bändern auf ein Band mittels Spurentechnik.
+          % Abbildung 3
+    \item Das Bandalphabet lässt sich durch $\{0,1,\square\}$ ersetzen, indem man mehrere nebeneinander
+          liegende Felder für ein einzelnes benutzt. Da die TM immer nur ein Feld liest, muss das 
+          gelesene Symbol sich im Zustand gemerkt werden.
+          % Abbildung 4
+\end{enumerate}
 
 \begin{bem}
     Sei $L = \{0,1\}$ eine Sprache und $\Phi : \{0,1\} \leadsto \{0,1\}^*$ eine partielle Funktion
@@ -69,8 +68,9 @@ liegende Felder für ein einzelnes benutzt. Da die TM immer nur ein Feld liest, 
     \end{itemize}
     $\Rightarrow$ Berechenbarkeitsbegriff ist unabhängig von Details einer TM. \\
     
-    Tatsächlich geht man noch weiter: \textbf{Church-Turing These}: \\
+    Tatsächlich geht man noch weiter: \textbf{Church-Turing-These}: \\
     Berechbarkeit auf einer TM entspricht intuitiver Berechbarkeit. (Achtung: intiuitve Berechenbarkeit ist kein formaler Begriff) \\
+    
     Oft belassen wir es bei intuitiver relativ groben Beschreibungen von TM.
 \end{bem}
 

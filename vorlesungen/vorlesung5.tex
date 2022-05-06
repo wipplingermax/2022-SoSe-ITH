@@ -12,15 +12,17 @@ Insbesondere erlaubt es uns partiell berechenbare partielle Funktionen als parti
 Zudem können Sprachen $L \subseteq \{0,1\}^*$ auch als Teilmenge von $\mathbb{N}$ auffassen.
 
 \begin{defn}{Code}
-    Wir betrachten eine Fuktion $code$ (mit geeignetem Definitionsbereich) und Zielmenge $\{0,1\}^*$, sodass folgendes gilt:
+    Wir betrachten eine Funktion $code$ (mit geeignetem Definitionsbereich) und Zielmenge $\{0,1\}^*$, sodass folgendes gilt:
     \begin{itemize}
-        \item Zunächst sei $code(L)=10, code(S)=00, code(R)=01$
+        \item Zunächst sei $code(L)=10$, $code(S)=00$, $code(R)=01$
         \item Für eine Instruktion $I = (q,a,q',a',B) \in \mathbb{N}_0 \times \{0,1\} \times \mathbb{N}_0 \times \{0,1\} \times \{L,S,R\}$
-              einer normierten Tm sei $code(I) := 0^{\vert bin(q) \vert} 1bin(q) a 0^{\vert bin(q')\vert} 1bin(q') a' code(B)$
+              einer normierten TM sei \\
+              $code(I) := 0^{\vert bin(q) \vert} \, 1bin(q) \, a \, 0^{\vert bin(q')\vert} \, 1bin(q') \, a' \, code(B)$
         \item Für eine endliche Menge $\Delta \in \mathbb{N}_0 \times \{0,1\} \times \mathbb{N}_0 \times \{0,1\} \times \{L,S,R\}$ von Instuktionen einer
               normierten TM und $i \in [\vert \Delta \vert]$ sei $code_i(\Delta)$ das in längenlex. Ordnung i-te Wort in 
-              $\{code(I) : I \in \Delta$ und es sei $code(\Delta) = code_1(\Delta),...,code_{\vert \Delta \vert}(\Delta)$
-        \item Für eine TM $M= (\{0,1,...,n\},\{0,1\},\{0,1,\square\},\square,0,\{0\})$ sei $code(M) := 0^{\vert bin(n) \vert} 1bin(n) code(\Delta)$ 
+              $code(I) : I \in \Delta$ und es sei $code(\Delta) = code_1(\Delta),...,code_{\vert \Delta \vert}(\Delta)$
+        \item Für eine TM $M= (\{0,1,...,n\},\{0,1\},\{0,1,\square\},\square,0,\{0\})$ sei \\
+              $code(M) := 0^{\vert bin(n) \vert} \, 1bin(n) \, code(\Delta)$ 
     \end{itemize}
 \end{defn}
 
@@ -74,7 +76,7 @@ Funktion umgewandelt werden kann.
     Für alle $n,m \in \mathbb{N}$ eine \textbf{berechnbare Funktion} $S^m_n : \mathbb{N}_0^{m+1} \rightarrow \mathbb{N}_0$ mit \\
     $\Phi^{m+n}_e(x_1,...,x_m,y_1,...,y_n) = \Phi_{s^m_n(e,x_1,x_n)}(y_1,...y_n)$ für alle $e,x_1,...,x_m,y_1,...y_n$ \\
 
-    \textbf(Beweis):\\
+    \textbf{Beweis}:\\
     Fixire $m,n$. \\
     Betrachte die DTM $S$, die bei Eingabe $(e,x_1,...,x_n) \in \mathbb{N}^{m+1}_0$ wie folgt verfährt:
     \begin{itemize}
