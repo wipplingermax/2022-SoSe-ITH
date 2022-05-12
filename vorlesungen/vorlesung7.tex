@@ -1,7 +1,7 @@
 \vorlesung{7}{Thema der Vorlesung}{14.05.2022}
 
 \textbf{Ziel der heutigen Vorlesung}: Zeigen, das das Postsche Korresponzendproblem über dem Binäralphabet entscheidbar ist. 
-$H_{init} \leqq PCP_{0,1}$ \\
+$H_{init} \leqq PCP_{\{0,1\}}$ \\
 
 Soll aus: \\
 $u(1)...(u(|u|))...v(1)...v(|v|)$ \\
@@ -27,7 +27,7 @@ Zeige: $H_{init} \leqq_m MPCP_\Sigma \leqq_m PCP_\Sigma \leqq_m PCP_{\{0,1\}}$
 
     Seien $a_1,a_2 \in \Sigma$ verschieden. Seien $b_1,...,b_{|\Gamma|}$ die Elemente von $\Gamma$. \\
     Es bezeichne $\phi : \Gamma^* \rightarrow \Sigma^*$ den eindeutigen Homomorphismus von Sprachen mit
-    $\phi(b_i) = a_1a_2^i$ für alle $i \in [|\Gamma|]$. \\
+    $\phi(b_i) = a_1^i a_2$ für alle $i \in [|\Gamma|]$. \\
 
     Gegeben eine Instanz $I$ wie oben sei $I':=\{(\phi(u),\phi(v)):(u,v) \in I\}$ \\
     Eine Funktion, die geeignete Codes von Instanzen $I$ auf geeignete Codes der zueghörigen $I'$ abbildet
@@ -41,5 +41,45 @@ Zeige: $H_{init} \leqq_m MPCP_\Sigma \leqq_m PCP_\Sigma \leqq_m PCP_{\{0,1\}}$
     $\phi(u_1...u_n) = u'_1...u'_n = v'_1 ...v'_n = \phi(v_1...v_n)$ \\
 
     Da $\phi|_\Gamma$ injektiv und $\phi(\Gamma)$ präfixfrei ist, ist $\phi$ injektiv. \\
-    Folglich gilt $u_1...u_n = v_1...v_n$. $I$ ist also lösbar wenn $I'$ lösbar ist.
+    Folglich gilt $u_1...u_n = v_1...v_n$. $I$ ist also lösbar wenn $I'$ lösbar ist. $\square$
+\end{lemma}
+
+\begin{lemma}{}
+    Für jedes Alphabet $\Sigma$ mit $|\Sigma| \geq 2$ gilt $MPCP_\Sigma \leq_m PCP_\Sigma$. \\
+
+    Beweis: \\
+    Sei $\Sigma$ ein Alphabet mit $|\Sigma| \geq 2$. \\
+    Nach Lemma 4.15 genügt es ein Alphabet $\Gamma$ zu finden, sodass $MPCP_\Sigma \leq_m PCP_\Gamma$ gilt. \\
+
+    Wir suchen eine effektive Transformation die jede Instanz $(p, I)$ von $MCPC_Sigma$ in eine Instanz
+    $I'$ von $PCP_\Gamma$ für geeignete $\Gamma$ transformiert, sodass $(p,I)$ genau lösbar ist wenn $I'$ lösbar ist. \\
+
+    % Abb. Dominos mit Sternchen
+    Betrachte die Homomorphismen von Sprachen $\sigma_{\leftarrow}, \sigma_{\rightarrow}$ $\Sigma^* \rightarrow (\Sigma \cup{*})^*$
+    Für jede solche Instanz $(p,I) = ((u_1,v_1), I)$ wie oben sei $I'=\{\sigma_{\leftarrow}(u_1),*sigma_{\rightarrow}(v_1)\}
+    \cup \{\sigma_{\leftarrow}(u),*\sigma_{\rightarrow}(v)\} : (u,v) \in I \backslash\{u_1,v_1\} \cup \{**,*\}$ \\
+    
+    Die Funktion, die geeignete Codes von $(p,I)$ auf geeignete Codes der zugehörigen Instanzen $I'$ abbildet ist berechenbar. \\
+
+    Gibt es eine Lösung $(u_1,v_1)...(u_n,v_n)$ von $(p,I)$, dann ist \\
+    $\sigma_\leftarrow(u_1)...\sigma_\rightarrow(u_n)** = \sigma_\leftarrow(u_1...u_n)** = *\sigma_\rightarrow(u_1...u_n)*$ \\
+    $*\sigma_\rightarrow(v_1)...\sigma_\rightarrow(v_n)*$ und folglich ist \\
+    $(\sigma_\leftarrow(u_1),*\sigma_\rightarrow(v_1),(\sigma_\leftarrow(u_2),\sigma_\rightarrow(v_2))),...,
+    (\sigma_\leftarrow(u_n),\sigma_\rightarrow(v_n)),(**,*)$ eine Lösung von $I'$. \\
+
+    Es bleibt zu zeigen, dass $(p,I)$ lösbar ist, wenn $I$ lösbar ist. \\
+
+    Sei $\tau : (\Sigma \cup \{*\})^* \rightarrow \Sigma^*$ der Homomorphismus von Sprachen mit $\tau|_\Sigma = id_\Sigma$
+    und $\tau(*) = \lambda$. \\
+
+    Sei $(u'_1,v'_1),...(u'_n...v'_n)$ eine Lösung von $I'$. \\
+    Es gilt $\tau(u'_1)...\tau(u'_n) = \tau(u'_1...u'_n) = \tau(v'_1...v'_n)$ = $\tau(v'_1)...\tau(v'_n)$. \\
+    Für $i \in [n]$ gilt $(\tau(u'_i), \tau(v'_i)) \in I \cup \{(\lambda, \lambda)\}$ \\
+
+    Weiter gibt es mindestens ein $i \in [n]$ mit $(u'_1,v'_1) \neq (**,*)$ und damit $(u'_1,v'_1) \neq
+    (\lambda, \lambda)$, denn andernfalls wäre $|u'_1...u'_n| = 2|v'_1...v'_n|$ mit $(\tau(u'_i)), \tau(v'_i)$ für alle $i \in [n]$ 
+    ist eine Lösung von $I$ als Instanz von $PCP_\Sigma$
+
+
+
 \end{lemma}
