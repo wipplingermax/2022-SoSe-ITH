@@ -1,0 +1,45 @@
+\vorlesung{7}{Thema der Vorlesung}{14.05.2022}
+
+\textbf{Ziel der heutigen Vorlesung}: Zeigen, das das Postsche Korresponzendproblem über dem Binäralphabet entscheidbar ist. 
+$H_{init} \leqq PCP_{0,1}$ \\
+
+Soll aus: \\
+$u(1)...(u(|u|))...v(1)...v(|v|)$ \\
+$u(1)...(u(|u|))...v(1)...v(|v|)...w(1)...w(|w|)$ \\
+
+eine Lösung werden, so muss nun $v$ oben erzeugt werden. Bei wird unten ein neues Suffix $w$ erzeugt.
+Geeignete Wahl der Paare/Steine erlaubt es $w$ zu konrollieren. Werden Konfiguationen einer TM durch Wörter
+dargestellt, so kann erzwungen werden, dass auf eine Darstellung einer Konfiguation die der Nachfolgekonfiguatation
+folgen muss. So kann erreicht werden, dass die konstruierte Instanz genau dann lösbar ist, wenn $M$
+bei Eingabe $\lambda$ terminiert. \\
+
+Um ein größeres Alphabet zur Verfügung zu haben:
+
+Zeige: $H_{init} \leqq_m MPCP_\Sigma \leqq_m PCP_\Sigma \leqq_m PCP_{\{0,1\}}$
+
+%Lemma 4.15 -- gegenchecken
+\begin{lemma}{}
+    Für Alphabete $\Sigma$ und $\Gamma$ mit $|\Sigma| \geqq 2$ gilt $PCP_{\Gamma} \leqq_m PCP_{\Sigma}$ \\
+
+    Beweis: \\
+    Wir suchen eine effektive Transformation, die jede Insatanz $I$ von $PCP_\Gamma$ in eine Instanz $I'$ von
+    $PCP_\Sigma$ transformiert, sodass $I$ genau dann lösbar ist, wenn $I'$ lösbar ist. \\
+
+    Seien $a_1,a_2 \in \Sigma$ verschieden. Seien $b_1,...,b_{|\Gamma|}$ die Elemente von $\Gamma$. \\
+    Es bezeichne $\phi : \Gamma^* \rightarrow \Sigma^*$ den eindeutigen Homomorphismus von Sprachen mit
+    $\phi(b_i) = a_1a_2^i$ für alle $i \in [|\Gamma|]$. \\
+
+    Gegeben eine Instanz $I$ wie oben sei $I':=\{(\phi(u),\phi(v)):(u,v) \in I\}$ \\
+    Eine Funktion, die geeignete Codes von Instanzen $I$ auf geeignete Codes der zueghörigen $I'$ abbildet
+    ist berechenbar.
+    
+    Ist $(u_1,v_1)...(u_n,v_n)$ eine Lösung von $I$, so ist $(\phi(u_1),\phi(v_1)),...,(\phi(u_n),\phi(v_n))$
+    eine Lösung von $I'$. Die Instanz $I'$ ist also lösbar, wenn $I$ lösbar ist. \\
+
+    Ist $(u'_1,v'_1)...(u'_n,v'_n)$ eine Lösung von $I'$, so gibt es eine Folge $(u_1,v_1)...(u_n,v_n)$ von Paaren in
+    $I$ mit $\phi(u_1)=u'_1$ und $\phi(v_1)=v'_1$ für alle $i \in [n]$ also mit \\
+    $\phi(u_1...u_n) = u'_1...u'_n = v'_1 ...v'_n = \phi(v_1...v_n)$ \\
+
+    Da $\phi|_\Gamma$ injektiv und $\phi(\Gamma)$ präfixfrei ist, ist $\phi$ injektiv. \\
+    Folglich gilt $u_1...u_n = v_1...v_n$. $I$ ist also lösbar wenn $I'$ lösbar ist.
+\end{lemma}

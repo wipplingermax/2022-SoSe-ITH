@@ -86,3 +86,43 @@ pdfauthor=\@author
         \vspace{0.7em}
     \end{shaded} 
 }
+
+\newtheoremstyle{tsprop}
+{}{}{}{}{\bfseries}{}{\newline}
+{\hspace{-1.3em}\colorbox{orange!100}{\color{white}\makebox[16.5cm][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+% New Environments
+\theoremstyle{tsprop}
+\newtheorem{vl@prop}[vl@defn]{Proposition }
+\newenvironment{prop}[1]{  
+    \vspace{0.7em}
+    \colorlet{shadecolor}{orange!10}
+    \begin{shaded}
+        \vspace{-2em}
+        \begin{vl@prop}[#1]
+        \end{vl@prop}
+        \vspace{-1em}
+
+}{
+        \vspace{0.7em}
+    \end{shaded} 
+}
+
+\newtheoremstyle{tslemma}
+{}{}{}{}{\bfseries}{}{\newline}
+{\hspace{-1.3em}\colorbox{magenta!100}{\color{white}\makebox[16.5cm][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+% New Environments
+\theoremstyle{tslemma}
+\newtheorem{vl@lemma}[vl@defn]{Lemma }
+\newenvironment{lemma}[1]{  
+    \vspace{0.7em}
+    \colorlet{shadecolor}{magenta!10}
+    \begin{shaded}
+        \vspace{-2em}
+        \begin{vl@lemma}[#1]
+        \end{vl@lemma}
+        \vspace{-1em}
+
+}{
+        \vspace{0.7em}
+    \end{shaded} 
+}

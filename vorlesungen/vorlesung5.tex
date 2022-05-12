@@ -1,4 +1,4 @@
-\vorlesung{5}{Thema der Vorlesung}{05.05.2022}
+\vorlesung{5}{Berechenbarkeit}{05.05.2022}
 
 \section{Berechenbarkeit}
 
@@ -17,12 +17,12 @@ Zudem können Sprachen $L \subseteq \{0,1\}^*$ auch als Teilmenge von $\mathbb{N
         \item Zunächst sei $code(L)=10$, $code(S)=00$, $code(R)=01$
         \item Für eine Instruktion $I = (q,a,q',a',B) \in \mathbb{N}_0 \times \{0,1\} \times \mathbb{N}_0 \times \{0,1\} \times \{L,S,R\}$
               einer normierten TM sei \\
-              $code(I) := 0^{\vert bin(q) \vert} \, 1bin(q) \, a \, 0^{\vert bin(q')\vert} \, 1bin(q') \, a' \, code(B)$
+              $code(I) := 0^{| bin(q) |} \, 1bin(q) \, a \, 0^{| bin(q')|} \, 1bin(q') \, a' \, code(B)$
         \item Für eine endliche Menge $\Delta \in \mathbb{N}_0 \times \{0,1\} \times \mathbb{N}_0 \times \{0,1\} \times \{L,S,R\}$ von Instuktionen einer
-              normierten TM und $i \in [\vert \Delta \vert]$ sei $code_i(\Delta)$ das in längenlex. Ordnung i-te Wort in 
-              $code(I) : I \in \Delta$ und es sei $code(\Delta) = code_1(\Delta),...,code_{\vert \Delta \vert}(\Delta)$
+              normierten TM und $i \in [| \Delta |]$ sei $code_i(\Delta)$ das in längenlex. Ordnung i-te Wort in 
+              $code(I) : I \in \Delta$ und es sei $code(\Delta) = code_1(\Delta),...,code_{| \Delta |}(\Delta)$
         \item Für eine TM $M= (\{0,1,...,n\},\{0,1\},\{0,1,\square\},\square,0,\{0\})$ sei \\
-              $code(M) := 0^{\vert bin(n) \vert} \, 1bin(n) \, code(\Delta)$ 
+              $code(M) := 0^{| bin(n) |} \, 1bin(n) \, code(\Delta)$ 
     \end{itemize}
 \end{defn}
 

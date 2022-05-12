@@ -1,0 +1,40 @@
+\vorlesung{6}{Untentscheidbare Probleme}{10.05.2022}
+
+\section*{4.1 Untentscheidbare Probleme}
+
+\textbf{Ziel}: \\
+Konstruktion von Problemen, die nicht durch TM entscheidbar sind.
+
+\begin{defn}{diagonales Halteproblem}
+    Die Menge $H_{diag} = \{e \in \mathbb{N}_0 : \Phi_e(e) \downarrow\}$ heißt das \textbf{diagonale Halteproblem}
+\end{defn}
+
+\begin{prop}{}
+    Das diagonale Halteproblem ist rekursiv aufzählbar. \\
+    
+    \textbf{Beweis:} \\
+    Die DTM, die bei eingabe $e \in \mathbb{N}_0$ arbeitet wie $U$ bei
+    der Eingabe $(e,e)$, aber bei terminierter Simulation 1 ausgibt, statt der
+    Ausgabe der Simulation, berechnet die partielle charakterischte Funktion von $H_{diag}$.
+    Die partielle Funktion ist somit partiell berechenbar \\
+    $\Rightarrow H_{diag}$ ist rekursiv aufzählbar $\square$ \\
+
+    \textbf{Erinnerung:} \\
+    Bem. 3.12: Eine Sprache $L$ ist genau dann entscheidbar, falls $L$ und $L^c$
+    rekursiv aufzählbar sind. \\
+
+    $\Rightarrow$ Unser Plan: Wir zeigen $H_{diag}$ ist NICHT rekursiv aufzählbar.
+\end{prop}
+
+\begin{satz}{Das diagonale Halteproblem ist entscheidbar}
+    \textbf{Beweis:} \\
+    Angenommen $H_{diag}$ wäre entscheidbar. \\
+    Dann wäre die partielle charakteristische Funktion $\phi$ von $H_{diag}^c := \mathbb{N}_0 \backslash H_{diag}$
+    partiell berechenbar. \\
+
+    $\Rightarrow$ Es gibt einen Index $e$ von $\phi$. Es folgt $e \in H_{diag}^c$
+    $\Leftrightarrow$ 
+
+
+
+\end{satz}
