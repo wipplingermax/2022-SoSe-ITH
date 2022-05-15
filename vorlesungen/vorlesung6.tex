@@ -1,4 +1,4 @@
-\vorlesung{6}{Untentscheidbare Probleme}{10.05.2022}
+\vorlesung{6}{Untentscheidbare Probleme, Halteproblem, Postsches Korrespondenzproblem}{10.05.2022}
 
 \section*{4.1 Untentscheidbare Probleme}
 
@@ -34,8 +34,73 @@ Konstruktion von Problemen, die nicht durch TM entscheidbar sind.
 
     $\Rightarrow$ Es gibt einen Index $e$ von $\phi$. Es folgt $e \in H_{diag}^c$
     $\Leftrightarrow$ Es gibt einen Index $e$ von $\phi$. Es folgt \\
-    $e \in H_{diag}^c \Leftrightarrow \phi(e)\downarrow = \Phi_e(e)\downarrow \Leftrightarrow e \in H_{diag} \Leftrightarrow e \notin H_{diag}^c \lightning \square$
+    $e \in H_{diag}^c \Leftrightarrow \phi(e)\downarrow = \Phi_e(e)\downarrow \Leftrightarrow e \in H_{diag} \Leftrightarrow e \notin H_{diag}^c \, \lightning \, \square$ \\
 
-
-
+    \textbf{Nicht für alles gibt es einen (terminierenden) Algorithmus!}
 \end{satz}
+
+\textbf{Nächster Schritt:} \\
+Finden von weiteren nicht entscheidbaren Problemen durch Reduktion auf diag. Halteproblem.
+
+\begin{defn}{m-Reduktion}
+    Gegeben eine Sprache $A$ über dem Alphabet $\Sigma$ und eine Sprache $B$ über einem Alphabet $\Gamma$. \\
+    Dann heißt $A$ \textbf{many-to-one-reduzierbar} (auch m-reduzierbar) auf $B$, fall es eine berechenbare Funktion
+    $f : \Sigma^* \rightarrow \Gamma^*$ gibt, sodass: \\
+    $w \in A \Leftrightarrow f(w) \in B \, \forall w \in \Sigma^*. $\\
+    In solch einem Fall schreiben wir $A \leq_m B$. \\
+
+    Falls $A \leq_m B$ und $B \leq_m A$, so sind $A$ und $B$ \textbf{many-to-many-äquivalent}, kurz m-äquivalent (auch $a =_m B$). \\
+
+    \textbf{Intuitiv:} $A \leq_m B$ bedeutet, mind. so schwer wie $A$.
+\end{defn}
+
+\begin{bem}
+    \begin{itemize}
+        \item "$\leq_m$ "{} ist transitiv (Verkettung)
+        \item Ist $A \leq_m B$ und ist $B$ entscheidbar, so ist $A$ entscheidbar.
+        \item Alle entscheidbaren Sprachen $L$ mit $\emptyset \neq L \neq \mathbb{N}_0$ sind m-äquivalent
+    \end{itemize}
+\end{bem}
+
+\textbf{Nächster Schritt:} \\
+Das initiale Halteproblem ist nicht endscheidbar. \\
+
+Wir definieren $H_{init}\{e \in \mathbb{N}_0 : \Phi_e(0)\downarrow\}$ \\
+
+Unser Plan ist zu zeigen, dass $H_{diag} \leq_m H_{init}$ gilt.
+Dazu suchen wir eine berechenbare Funktion $f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$, sodass $\Phi_e(e)\downarrow \Leftrightarrow \Phi_{f(e)}(0)\downarrow$.
+
+\begin{satz}{Das init. Halteproblem ist nicht entscheidbar}
+    \textbf{Beweis:}\\
+    Sei $\psi : \mathbb{N}_0^2 \rightarrow \mathbb{N}_0$ mit $\psi(e,x) = \Phi_e(e) \, \forall e,x \in \mathbb{N}_0$. Dann ist $\psi$ partiell berechenbar. \\
+    Sei $e_0$ ein Index von $\psi$ und sei $s:\mathbb{N}_0^2 \rightarrow \mathbb{N}$ gemäß dem $s^m_n$-Theorem so gewählt, 
+    dass \\ $\Phi_{e_0}(e,x) = \Phi_{s(e_0,e)}(x) \, \forall e,x \in \mathbb{N}_0$ \\
+    Sei $f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ mit $f(e) = s(e_0,e) \, \forall e\in \mathbb{N}_0$ \\
+
+    Dann ist $f$ berechenbar und für alle $e \in \mathbb{N}_0$ gilt:\\
+    $e \in H_{diag} \Leftrightarrow \Phi_e(e)\downarrow \Leftrightarrow \psi(e,0)\downarrow \Leftrightarrow \Phi_{e_0}(e,0)\downarrow \\
+    \Leftrightarrow \Phi_{s(e,e_0)}(0)\downarrow \Leftrightarrow \Phi_{f(e)}(0)\downarrow \Leftrightarrow f(e) \in H_{init}$ \\
+
+    $\Rightarrow H_{diag} \leq_m H_{init}$, da $H_{diag}$ nicht entscheidbar ist, ist $H_{init}$ auch nicht entscheidbar. (Bem 4.12). $\square$
+\end{satz}
+
+\begin{defn}{(modifiziertes) Postsches Korrespondenzproblem, Emil Post}
+    Für ein Alphabet $\Sigma$ sei eine \textbf{Instanz} des (modifizierten) Postschen Korrespondenzproblems über $\Sigma$ eine Teilmenge $I \subseteq (\Sigma^*)^2$ 
+    (ein Paar $(p, I)$ mit $I \subseteq (\Sigma^*)^2$ und $p \in I$). \\
+
+    Eine \textbf{Lösung} für eine Instanz ist eine endliche Folge $(u_1,v_1)...(u_n,v_n)$ von Paaren aus $I$ (mit $p \in (u_1,v_1)$) mit $n \geq 1$, sodass
+    $u_1 \circ ... \circ u_n = v_1...v_n$ gilt. Gibt es eine Lösung für eine Instanz $I$, so heißt die Instanz \textbf{lösbar}. Das (modifizierte) Postsche 
+    Korrespondenzproblem über $\Sigma$, kurz $PCP_\Sigma (MCPC_\Sigma)$ ist die Menge aller lösbaren Insanzen (modifizierter) Postscher Korrespondenzprobleme 
+    über $\Sigma$. \\
+
+    Für ein festes Alphabet $\Sigma$ lassen sich die Instanzen leicht in geeigneter Weise effektiv als Binärwort codierten, sodass $PCP_\Sigma$ bzw. $MPCP_\Sigma$ 
+    als Sprache aufgefasst werden kann.
+\end{defn}
+
+\textbf{Ziel:} \\
+Wir zeigen, dass das Postsche Korrespondenzproblem über $\Sigma$ mit $|\Sigma| \geq 2$ nicht entscheidbar ist. \\
+
+\textbf{Idee:} TM-Simulation: \\
+\begin{align*}
+    |w_1| \geq |w_2| && \dfrac{w_1}{w_2} = \dfrac{w_2 \circ w_3}{w_2} \\
+\end{align*}
