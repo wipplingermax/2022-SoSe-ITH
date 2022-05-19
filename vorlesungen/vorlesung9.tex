@@ -1,4 +1,4 @@
-\vorlesung{9}{Thema der Vorlesung}{19.05.2022}
+\vorlesung{9}{Fixpunktsatz, Rekursionstheorem und Satz von Rice}{19.05.2022}
 
 %%4.2 - wo 4.1?
 \subsection{Fixpunktsatz, Rekursionstheorem und Satz von Rice}
@@ -64,4 +64,54 @@ gewissem Sinne ein Fixpunkt von $f$, nämlich $M_{\eta(e')}$ wird auf eine TM ab
     $\Phi_{f(e_{\text{fix}})} = \Phi_{f(h(e_{\text{fix}}))} = \Phi_{\Phi_{e_{f \circ h}}}(e_{f \circ h}) = \Phi_{h(e_{f \circ h})} = \Phi_{e_{\text{fix}}}$ \\
 
     Folglich ist $e_{fix}$ ein Fixpunkt von $f$. $\square$
+\end{satz}
+
+\textbf{Wichtig:} Die Fixpunkte wie oben definiert sind \textbf{semantische} Fixpunkte aber \textbf{nicht syntaktische}-
+(Das progamm macht das Gleiche, aber ist im Synax möglicherweise verschieden.)
+
+\begin{satz}{Rekursionstheorem, Kleene, 1938}
+    Für alle partiell berechnbaren part. Funktionen $\phi: \mathbb{N}_0^2 \leadsto \mathbb{N}_0$ gibt es ein $e$ mit 
+    $\Phi_e(x) = \phi_{(e,x)} \, \forall x \in \mathbb{N}_0$ \\
+
+    \textbf{Beweis:} \\
+    Sei $e_\phi$ ein index von $\phi$. Gemäß $s^n_m$-Theorem, gibt es eine berechenbare Funktion $s'_1 : \mathbb{N}_0^2 \rightarrow \mathbb{N}$ 
+    mit $\Phi_{s'_1(e_\phi,e)}(x) = \phi(e,x) \, \forall x \in \mathbb{N}_0$. \\
+
+    Sei $s: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ die berechenbare Funktion $s(e)= s'_1(e_\phi,e) \, \forall e \in \mathbb{N}_0$
+    $\Rightarrow$ (Fixpunktsatz) s hat einen Fixpunkt $e_{text{fix}}$ mit \\
+    $\Phi_{e_{\text{fix}}}(x) = \Phi_{s(e_{\text{fix}})}(x) = \Phi_{s'_1(e_\phi,e_{\text{fix}})}(x) = \phi(e_{\text{fix}}) \, \forall x \in \mathbb{N}_0$. $\square$
+\end{satz}
+
+\begin{kollar}{}
+    Es gibt ein $e \in \mathbb{N}_0$ mit $\Phi_e(x) =e$. \\
+
+    \textbf{Beweis:}\\
+    Sei $tau : \mathbb{N}_0^2 \leadsto \mathbb{N}_0$ die part. berechenbare part. Funktion mit $\phi(e,x) = e$ für alle $e,x \in \mathbb{N}_0$ \\
+    $\Rightarrow$ (Satz 4.22) $\exists e \in \mathbb{N}_0$ mit $\Phi_e(x) = \tau(e,x)=e \, \forall x \in \mathbb{N}_0$ \\
+
+    \textbf{Bemerkung:} \\
+    Es gibt Programme, die ohne auf den Speicher des Computers zugreifen, ihren eigenen Code ausgeben. (Quines)
+\end{kollar}
+
+Eine weitere wichtige Konsequenz aus dem Fixpunktsatz ist die Einsicht, dass nicht triviale semantische Programmeigenschaften unentscheidbar sind. \\
+Jede Menge $\emptyset \neq I \subsetneq \mathbb{N}_0$, die in dem Sinne durch eine semantische Programmeigenschaft charakterisiert ist, dass
+$e \in I \Leftrightarrow e' \in I \, \forall e,e' \in \mathbb{N}_0$ mit $\Phi_e = \Phi_{e'}$ gilt, ist untentscheidbar. \\
+
+\begin{defn}{Indexmenge}
+    Eine Teilmenge $I \subseteq \mathbb{N}_0$ heißt Indexmenge, wenn $e \in I \Leftrightarrow e' \in I \, \forall e,e' \in \mathbb{N}_0$
+    mit $\Phi_e = \Phi_{e'}$ gilt.
+\end{defn}
+
+\begin{satz}{Satz von Rice, 1951}
+    Ist $I$ eine Indexmenge mit $\emptyset \neq I \neq \mathbb{N}_0$, so ist $I$ nicht entscheidbar (keine TM mit akzeptierter Sprache). \\
+
+    \textbf{Beweis:} \\
+    Sei $e_0 \notin I$, $e_1 \in I$ und sei $f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ die Funktion mit 
+    $f(e) = e_1 \, \forall e \in \mathbb{N}_0 \backslash I$ und $f(e) = e_0 \, \forall e \in I$. \\
+
+    $\forall e \in \mathbb{N}_0$ gilt $f(e) \in I \Leftrightarrow e \notin I$ und da $I$ eine Indexmenge ist somit 
+    $\Phi_{f(e)} \neq \Phi_e$. Die Funktion $f$ hat also keinen Fixpunkt. \\
+    
+    Wäre $I$ entscheidbar, so wäre $f$ berechbar, was im Widerspruch zum Fixpunktsatz steht.
+    $\square$
 \end{satz}

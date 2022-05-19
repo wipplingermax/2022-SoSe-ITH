@@ -1,4 +1,4 @@
-\vorlesung{8}{Thema der Vorlesung}{17.05.2022}
+\vorlesung{8}{Entscheidbarkeit von (modifizierten) PCP}{17.05.2022}
 
 \begin{lemma}{}
     Es gilt $H_{init} \leq_m MCPC_{\{\square, 0,1\},*,\#,\dagger}$ \\
@@ -38,7 +38,7 @@
         \item Für das kopieren von nicht veränderten Präfixen un Suffixen von Konfig: $(\#,\#),(\square,\square),(0,0),(1,1)$
         \item Für Schritte nach links $(\square \hat{q} a, \hat{q}' \square a), (0\hat{q} a, \hat{q} 0 a'), (1 \hat{q} a, \hat{q}' 1 a'), (\# \hat{q} a, \# \square \hat{q}'a')$
               für jede Instruktion $(q,a,q',a',L) \in \Delta$
-        \item Für Instruktionen mit Bewegung S (stehenbleiben): $(\hat{q} a, \hat{q}',a') \, \forall (q,a,q',a',S) \in \Delta $
+        \item Für Instruktionen mit Bewegung S (stehenbleiben): $(\hat{q} a, \hat{q}',a') \\ \forall (q,a,q',a',S) \in \Delta $
         \item Für Schrite nach rechts: $(\hat{q} a \square, a' \hat{q}' \square),(\hat{q} a 0, \hat{q}' a'0),(\hat{q} a 1, \hat{q}' a' 1), \\
         (\hat{q} a \#, a' \hat{q}' \square \#) \, \forall (q,a,q',a',R) \in \Delta$
         \item Für den Beginn der Vervollständigung zu einer Lösung, wenn eine Stoppkonfiguration erreicht wurde: \\
@@ -50,6 +50,10 @@
 
     %%Abbsildung 8.3
 \end{lemma}
+
+\begin{bem}
+    \textit{Nur Platzhalter für Nummerierung, weil 4.18 nicht aufgeführt}
+\end{bem}
 
 \begin{satz}{}
     Für jedes Alpabet $\Sigma$ mit $\vert \Sigma \vert \geq 2$ ist $PCP_\Sigma$ nicht entscheidbar. \\

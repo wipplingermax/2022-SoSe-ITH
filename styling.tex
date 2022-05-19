@@ -126,3 +126,23 @@ pdfauthor=\@author
         \vspace{0.7em}
     \end{shaded} 
 }
+
+\newtheoremstyle{tskollar}
+{}{}{}{}{\bfseries}{}{\newline}
+{\hspace{-1.3em}\colorbox{magenta!100}{\color{white}\makebox[16.5cm][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
+% New Environments
+\theoremstyle{tskollar}
+\newtheorem{vl@kollar}[vl@defn]{Kollar }
+\newenvironment{kollar}[1]{  
+    \vspace{0.7em}
+    \colorlet{shadecolor}{magenta!10}
+    \begin{shaded}
+        \vspace{-2em}
+        \begin{vl@kollar}[#1]
+        \end{vl@kollar}
+        \vspace{-1em}
+
+}{
+        \vspace{0.7em}
+    \end{shaded} 
+}
