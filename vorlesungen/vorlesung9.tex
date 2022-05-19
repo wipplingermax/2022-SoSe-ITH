@@ -1,0 +1,67 @@
+\vorlesung{9}{Thema der Vorlesung}{19.05.2022}
+
+%%4.2 - wo 4.1?
+\subsection{Fixpunktsatz, Rekursionstheorem und Satz von Rice}
+ 
+\textbf{Letztes Kapitel:} Es gibt unentscheidbare Probleme. \\
+(Beweis durch Standardaufzählung der TM, Spalte = TM, Zeile = Eingabe) \\
+
+\textbf{Ziel dieses Kapitels:} Weitere Konsequenzen der Standardaufzählung. \\
+
+\textbf{Programmtansformationen:} Abbildungen von (normierten) TM auf TM. \\
+
+Jede TM hat einen Index $e \in \mathbb{N}_0$ \\
+Transformation von TM auf TM $\Leftrightarrow f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ \\
+$\Phi_{f(e)}$
+$\Phi_{\Phi_{e}}(x)$ falls $\Phi_e(x)\uparrow$ ist $\Phi_{\Phi_e(x)}$ die 
+part. berechenbare Funktion mit leerem Definitionsbereich \\
+
+Dazu passend als Schema: \\
+$\Phi_{\Phi_0(0)} \, \Phi_{\Phi_0(1)} \, \Phi_{\Phi_0(2)}...$ \\
+$\Phi_{\Phi_1(0)} \, \Phi_{\Phi_1(1)} \, \Phi_{\Phi_1(2)}...$ \\
+$...$ \\
+
+Sei $\eta : \mathbb{N}_0 \leadsto \mathbb{N}_0$ die part. berech. part. Funktion, sodass 
+$\eta = \Phi_e(e) \, \forall e \in \mathbb{N}_0$ \\
+$\Rightarrow \Phi_{\Phi_e(e)} = \Phi_{\eta(e)} \, \forall e \in \mathbb{N}_0$ \\
+
+Sei $f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ eine berechb. Funktion, so gilt obiges insbesonderen für den Index $e'$
+der Funktion $f \circ \eta$ \\
+
+Es gilt: \\
+$\Phi_{f(\eta(e'))} = \Phi_{\Phi_{e'}(e')} = \Phi_{\eta(e')}$. \\
+
+Fassen wir das als effektive Programmtansformation auf und wäre $\eta(e')\downarrow$, so wäre $\eta(e')$ in
+gewissem Sinne ein Fixpunkt von $f$, nämlich $M_{\eta(e')}$ wird auf eine TM abgebildet, die die gleiche part. Funktion berechnet.
+
+\begin{defn}{Fixpunkt}
+    Ein \textbf{Fixpunkt} einer berechenbaren Funktion $f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$, ist ein 
+    $e \in \mathbb{N}_0$ mit $\Phi_{f(e) = \Phi(e)}$.
+\end{defn}
+
+\begin{satz}{Fixpunktsatz, 1967, Rogers}
+    Alle berechenbaren Funktionen $f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ haben einen Fixpunkt. \\
+
+    \textbf{Beweis:} \\
+    Für $e,x \in \mathbb{N}_0$ mit $\Phi_e(x)\downarrow$, sei $\phi_{e,x} : \mathbb{N}_0 \rightarrow \mathbb{N}_0$ die 
+    part. berechbare part. Funktion mit $\phi_{e,x} = \Phi_{\Phi_e(x)}(y) \, \forall y \in \mathbb{N}_0$. \\
+    Fall $e,x \in \mathbb{N}_0$ und $\Phi_e(x)\uparrow$ sei $\phi_{e,x}: \mathbb{N}_0 \leadsto \mathbb{N}$ die part. berechenbare part.
+    Funktion mit $dom(\phi_{e,x}) \neq \emptyset$ \\
+
+    Sei $\tau : \mathbb{N}_0^2 \leadsto \mathbb{N}_0$ die part. berechenbare Funktion mit  $\tau_{e,x} = \Phi_{Phi_e(e)}(x) \,
+    \forall e,x \in \mathbb{N}_0$. \\
+
+    Sei $e_\tau$ ein Index von $\phi \Rightarrow$ ($S^m_n$-Theorem) es existiert eine berechbare Funktion
+    $s'_1: \mathbb{N}_0^2 \rightarrow \mathbb{N}$ mit \\
+    $\Phi_{s'_1(e_\tau,e)}(x) = \tau(e,x) \, \forall e,x \in \mathbb{N}_0$ \\
+
+    Sei $h: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ die berechenbare Funktion $h(e) = s'_1(e_\tau,e) \, \forall e \in \mathbb{N}_0$ \\
+    Dann gilt $\Phi_{h(e)}(x) = \Phi_{s'_1(e_\tau,e)}(x) = \tau(e,x) = \Phi_{\Phi_e(e)}(x)$, also \\
+    $\Phi_{h(e)} = \Phi_{\Phi_e(e)}(x)$ \\
+
+    Sei $e_{f \circ h}$ ein Index der Funktion $f \circ h$ und $e_{\text{fix}}:=h(e_{f \circ h})$. \\
+    Somit gilt: \\
+    $\Phi_{f(e_{\text{fix}})} = \Phi_{f(h(e_{\text{fix}}))} = \Phi_{\Phi_{e_{f \circ h}}}(e_{f \circ h}) = \Phi_{h(e_{f \circ h})} = \Phi_{e_{\text{fix}}}$ \\
+
+    Folglich ist $e_{fix}$ ein Fixpunkt von $f$. $\square$
+\end{satz}

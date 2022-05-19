@@ -78,8 +78,15 @@ Zeige: $H_{init} \leqq_m MPCP_\Sigma \leqq_m PCP_\Sigma \leqq_m PCP_{\{0,1\}}$
 
     Weiter gibt es mindestens ein $i \in [n]$ mit $(u'_1,v'_1) \neq (**,*)$ und damit $(u'_1,v'_1) \neq
     (\lambda, \lambda)$, denn andernfalls wäre $|u'_1...u'_n| = 2|v'_1...v'_n|$ mit $(\tau(u'_i)), \tau(v'_i)$ für alle $i \in [n]$ 
-    ist eine Lösung von $I$ als Instanz von $PCP_\Sigma$
+    ist eine Lösung von $I$ als Instanz von $PCP_\Sigma$ \\
 
+    Es genügt also zu zeigen, dass $p' := (\sigma_leftarrow(u_1),*\sigma_rightarrow(v_1)) =(u'_1, v'_1). $\\
+    Für $(u,v) \in I \backslash \{p',(**,*)\}$ gilt $u(1) \neq v(1)$. Somit ist $(u'_1, v'_1) \in \{p',(**,*)\}$.
+    Es genügt zu zeigen, dass $(u'_1,v'_1) \neq (**,*)$ \\
 
+    Sei $i \in \mathbb{N}$ minimal mit $(u'_1, v'_1 \neq (**,*))$ \\
+    Es gilt $(v'_1,v'_n)(i) \neq *$ oder $(v'_1,...,v'_n)(i+1) \neq **$. \\
+    Außerdem gilt $(**)^{i-1} * \subseteq u'_1 ... u'_n = v'_1 ... v'_n$ also folgt $i=1$,
+    $2i+2+1 = 2i-1$ Sternchen $\geq i+1 \Leftrightarrow i \geq 2$, da oben an Stelle $i$ und $i+1$ ein Sternchen steht. $\square$
 
 \end{lemma}
