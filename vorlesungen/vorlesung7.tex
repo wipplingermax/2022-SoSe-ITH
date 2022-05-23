@@ -51,12 +51,12 @@ Zeige: $H_{init} \leqq_m MPCP_\Sigma \leqq_m PCP_\Sigma \leqq_m PCP_{\{0,1\}}$
     Sei $\Sigma$ ein Alphabet mit $|\Sigma| \geq 2$. \\
     Nach Lemma 4.15 genügt es ein Alphabet $\Gamma$ zu finden, sodass $MPCP_\Sigma \leq_m PCP_\Gamma$ gilt. \\
 
-    Wir suchen eine effektive Transformation die jede Instanz $(p, I)$ von $MCPC_Sigma$ in eine Instanz
+    Wir suchen eine effektive Transformation die jede Instanz $(p, I)$ von $MPCP_Sigma$ in eine Instanz
     $I'$ von $PCP_\Gamma$ für geeignete $\Gamma$ transformiert, sodass $(p,I)$ genau lösbar ist wenn $I'$ lösbar ist. \\
 
     % Abb. Dominos mit Sternchen
     Betrachte die Homomorphismen von Sprachen $\sigma_{\leftarrow}, \sigma_{\rightarrow}$ $\Sigma^* \rightarrow (\Sigma \cup{*})^*$
-    Für jede solche Instanz $(p,I) = ((u_1,v_1), I)$ wie oben sei $I'=\{\sigma_{\leftarrow}(u_1),*sigma_{\rightarrow}(v_1)\}
+    Für jede solche Instanz $(p,I) = ((u_1,v_1), I)$ wie oben sei $I'=\{\sigma_{\leftarrow}(u_1),*\sigma_{\rightarrow}(v_1)\}
     \cup \{\sigma_{\leftarrow}(u),*\sigma_{\rightarrow}(v)\} : (u,v) \in I \backslash\{u_1,v_1\} \cup \{**,*\}$ \\
     
     Die Funktion, die geeignete Codes von $(p,I)$ auf geeignete Codes der zugehörigen Instanzen $I'$ abbildet ist berechenbar. \\
