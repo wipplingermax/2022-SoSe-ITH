@@ -3,7 +3,7 @@
 \begin{defn}{Präfix, Infix, Suffix}
     \begin{itemize}
         \item $u$ ist ein Präfix von $v$, kurz $u \sqsubset v$ falls es ein Wort $w$ gibt, sodass $v=uw$
-        \item $u$ ist ein infix von $v$,  falls es zwei Wörter $w_1,w_2$ gibt, sodass $v=w_1uw_2$
+        \item $u$ ist ein Infix von $v$,  falls es zwei Wörter $w_1,w_2$ gibt, sodass $v=w_1uw_2$
         \item $u$ ist ein Suffix von $v$, falls es ein Wort $w$ gibt, sodass $v=uw$
     \end{itemize}
 \end{defn}
@@ -35,7 +35,7 @@
 \end{bem}
 
 \begin{bem}
-    Für alle $i \in \mathbb{N}_0$ ist $1 \circ bin(i)$ die Binärdrstellung von $i+1$. \\
+    Für alle $i \in \mathbb{N}_0$ ist $1 \circ bin(i)$ die Binärdarstellung von $i+1$. \\
     Umgekehrt ist für ale $w \in \{0,1\}^*$ das $(2^{|w|} + \sum_{i \in |w|}w(i)2^{i-1})$-te Binärwort.
 \end{bem}
 
@@ -81,14 +81,14 @@ Zustand + eingelesene Symbole zu diesem Zeitpunkt $\rightarrow$
 
     Die \textbf{Startkonfiguration} von $M$ zur Eingabe $(u_1,...,u_n)\in(\Sigma^*)^n$, wobei $n\in\mathbb{N}$ ist die Konfiguration $\text{start}_m(u_1,...,u_n)$ := $s, u,\square u_2,....,\square u_n \square, 1,...,1)$ \\
 
-    Die Konfiguration C ist eine \textbf{Stoppkonfiguation} von $M$, wenn es keine Instrunktion $i \in A$, mit Bedingungsteil $(q, u(p_1),...,u(p_k))$
+    Die Konfiguration C ist eine \textbf{Stoppkonfiguration} von $M$, wenn es keine Instruktion $i \in A$, mit Bedingungsteil $(q, u(p_1),...,u(p_k))$
 \end{defn}
 
 \begin{defn}{Nachfolgekonfiguration}
     Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
 
     Für Konfiguration $C=(q,w_1,...,w_k,p_1,...,p_k)$ und $C' = (q', w_1',...,w_k',p_1',...p_k')$ von $M$ ist $C'$, 
-    wenn es eine instruktion $(q, w_1(p_1),...,w_k(p_k),a_1',...,a_k',B_1,...,B_k) \in \Delta$ gibt, sodass
+    wenn es eine Instruktion $(q, w_1(p_1),...,w_k(p_k),a_1',...,a_k',B_1,...,B_k) \in \Delta$ gibt, sodass
 
     \begin{align*}  
         w_i =

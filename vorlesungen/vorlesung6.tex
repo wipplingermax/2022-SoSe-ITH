@@ -1,6 +1,6 @@
-\vorlesung{6}{Untentscheidbare Probleme, Halteproblem, Postsches Korrespondenzproblem}{10.05.2022}
+\vorlesung{6}{Unentscheidbare Probleme, Halteproblem, Postsches Korrespondenzproblem}{10.05.2022}
 
-\section*{4.1 Untentscheidbare Probleme}
+\section*{4.1 Unentscheidbare Probleme}
 
 \textbf{Ziel}: \\
 Konstruktion von Problemen, die nicht durch TM entscheidbar sind.
@@ -15,7 +15,7 @@ Konstruktion von Problemen, die nicht durch TM entscheidbar sind.
     \textbf{Beweis:} \\
     Die DTM, die bei Eingabe $e \in \mathbb{N}_0$ arbeitet wie $U$ bei
     der Eingabe $(e,e)$, aber bei terminierter Simulation 1 ausgibt, statt der
-    Ausgabe der Simulation, berechnet die partielle charakterischte Funktion von $H_{diag}$.
+    Ausgabe der Simulation, berechnet die partielle charakteristische Funktion von $H_{diag}$.
     Die partielle Funktion ist somit partiell berechenbar \\
     $\Rightarrow H_{diag}$ ist rekursiv aufzählbar $\square$ \\
 
@@ -63,7 +63,7 @@ Finden von weiteren nicht entscheidbaren Problemen durch Reduktion auf diag. Hal
 \end{bem}
 
 \textbf{Nächster Schritt:} \\
-Das initiale Halteproblem ist nicht endscheidbar. \\
+Das initiale Halteproblem ist nicht entscheidbar. \\
 
 Wir definieren $H_{init}\{e \in \mathbb{N}_0 : \Phi_e(0)\downarrow\}$ \\
 
@@ -90,7 +90,7 @@ Dazu suchen wir eine berechenbare Funktion $f: \mathbb{N}_0 \rightarrow \mathbb{
 
     Eine \textbf{Lösung} für eine Instanz ist eine endliche Folge $(u_1,v_1)...(u_n,v_n)$ von Paaren aus $I$ (mit $p \in (u_1,v_1)$) mit $n \geq 1$, sodass
     $u_1 \circ ... \circ u_n = v_1...v_n$ gilt. Gibt es eine Lösung für eine Instanz $I$, so heißt die Instanz \textbf{lösbar}. Das (modifizierte) Postsche 
-    Korrespondenzproblem über $\Sigma$, kurz $PCP_\Sigma (MPCP_\Sigma)$ ist die Menge aller lösbaren Insanzen (modifizierter) Postscher Korrespondenzprobleme 
+    Korrespondenzproblem über $\Sigma$, kurz $PCP_\Sigma (MPCP_\Sigma)$ ist die Menge aller lösbaren Instanzen (modifizierter) Postscher Korrespondenzprobleme 
     über $\Sigma$. \\
 
     Für ein festes Alphabet $\Sigma$ lassen sich die Instanzen leicht in geeigneter Weise effektiv als Binärwort codierten, sodass $PCP_\Sigma$ bzw. $MPCP_\Sigma$ 
