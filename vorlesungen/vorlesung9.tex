@@ -8,7 +8,7 @@
 
 \textbf{Ziel dieses Kapitels:} Weitere Konsequenzen der Standardaufzählung. \\
 
-\textbf{Programmtansformationen:} Abbildungen von (normierten) TM auf TM. \\
+\textbf{Programmtransformationen:} Abbildungen von (normierten) TM auf TM. \\
 
 Jede TM hat einen Index $e \in \mathbb{N}_0$ \\
 Transformation von TM auf TM $\Leftrightarrow f: \mathbb{N}_0 \rightarrow \mathbb{N}_0$ \\
@@ -31,7 +31,7 @@ der Funktion $f \circ \eta$ \\
 Es gilt: \\
 $\Phi_{f(\eta(e'))} = \Phi_{\Phi_{e'}(e')} = \Phi_{\eta(e')}$. \\
 
-Fassen wir das als effektive Programmtansformation auf und wäre $\eta(e')\downarrow$, so wäre $\eta(e')$ in
+Fassen wir das als effektive Programmtransformation auf und wäre $\eta(e')\downarrow$, so wäre $\eta(e')$ in
 gewissem Sinne ein Fixpunkt von $f$, nämlich $M_{\eta(e')}$ wird auf eine TM abgebildet, die die gleiche part. Funktion berechnet.
 
 \begin{defn}{Fixpunkt}
@@ -44,14 +44,14 @@ gewissem Sinne ein Fixpunkt von $f$, nämlich $M_{\eta(e')}$ wird auf eine TM ab
 
     \textbf{Beweis:} \\
     Für $e,x \in \mathbb{N}_0$ mit $\Phi_e(x)\downarrow$, sei $\phi_{e,x} : \mathbb{N}_0 \rightarrow \mathbb{N}_0$ die 
-    part. berechbare part. Funktion mit $\phi_{e,x} = \Phi_{\Phi_e(x)}(y) \, \forall y \in \mathbb{N}_0$. \\
+    part. berechenbare part. Funktion mit $\phi_{e,x} = \Phi_{\Phi_e(x)}(y) \, \forall y \in \mathbb{N}_0$. \\
     Fall $e,x \in \mathbb{N}_0$ und $\Phi_e(x)\uparrow$ sei $\phi_{e,x}: \mathbb{N}_0 \leadsto \mathbb{N}$ die part. berechenbare part.
     Funktion mit $dom(\phi_{e,x}) \neq \emptyset$ \\
 
     Sei $\tau : \mathbb{N}_0^2 \leadsto \mathbb{N}_0$ die part. berechenbare Funktion mit  $\tau_{e,x} = \Phi_{Phi_e(e)}(x) \,
     \forall e,x \in \mathbb{N}_0$. \\
 
-    Sei $e_\tau$ ein Index von $\phi \Rightarrow$ ($S^m_n$-Theorem) es existiert eine berechbare Funktion
+    Sei $e_\tau$ ein Index von $\phi \Rightarrow$ ($S^m_n$-Theorem) es existiert eine berechenbare Funktion
     $s'_1: \mathbb{N}_0^2 \rightarrow \mathbb{N}$ mit \\
     $\Phi_{s'_1(e_\tau,e)}(x) = \tau(e,x) \, \forall e,x \in \mathbb{N}_0$ \\
 
@@ -67,10 +67,10 @@ gewissem Sinne ein Fixpunkt von $f$, nämlich $M_{\eta(e')}$ wird auf eine TM ab
 \end{satz}
 
 \textbf{Wichtig:} Die Fixpunkte wie oben definiert sind \textbf{semantische} Fixpunkte aber \textbf{nicht syntaktische}-
-(Das progamm macht das Gleiche, aber ist im Synax möglicherweise verschieden.)
+(Das Programm macht das Gleiche, aber ist im Syntax möglicherweise verschieden.)
 
 \begin{satz}{Rekursionstheorem, Kleene, 1938}
-    Für alle partiell berechnbaren part. Funktionen $\phi: \mathbb{N}_0^2 \leadsto \mathbb{N}_0$ gibt es ein $e$ mit 
+    Für alle partiell berechenbaren part. Funktionen $\phi: \mathbb{N}_0^2 \leadsto \mathbb{N}_0$ gibt es ein $e$ mit 
     $\Phi_e(x) = \phi_{(e,x)} \, \forall x \in \mathbb{N}_0$ \\
 
     \textbf{Beweis:} \\
@@ -95,7 +95,7 @@ gewissem Sinne ein Fixpunkt von $f$, nämlich $M_{\eta(e')}$ wird auf eine TM ab
 
 Eine weitere wichtige Konsequenz aus dem Fixpunktsatz ist die Einsicht, dass nicht triviale semantische Programmeigenschaften unentscheidbar sind. \\
 Jede Menge $\emptyset \neq I \subsetneq \mathbb{N}_0$, die in dem Sinne durch eine semantische Programmeigenschaft charakterisiert ist, dass
-$e \in I \Leftrightarrow e' \in I \, \forall e,e' \in \mathbb{N}_0$ mit $\Phi_e = \Phi_{e'}$ gilt, ist untentscheidbar. \\
+$e \in I \Leftrightarrow e' \in I \, \forall e,e' \in \mathbb{N}_0$ mit $\Phi_e = \Phi_{e'}$ gilt, ist unentscheidbar. \\
 
 \begin{defn}{Indexmenge}
     Eine Teilmenge $I \subseteq \mathbb{N}_0$ heißt Indexmenge, wenn $e \in I \Leftrightarrow e' \in I \, \forall e,e' \in \mathbb{N}_0$
@@ -112,6 +112,6 @@ $e \in I \Leftrightarrow e' \in I \, \forall e,e' \in \mathbb{N}_0$ mit $\Phi_e 
     $\forall e \in \mathbb{N}_0$ gilt $f(e) \in I \Leftrightarrow e \notin I$ und da $I$ eine Indexmenge ist somit 
     $\Phi_{f(e)} \neq \Phi_e$. Die Funktion $f$ hat also keinen Fixpunkt. \\
     
-    Wäre $I$ entscheidbar, so wäre $f$ berechbar, was im Widerspruch zum Fixpunktsatz steht.
+    Wäre $I$ entscheidbar, so wäre $f$ berechenbar, was im Widerspruch zum Fixpunktsatz steht.
     $\square$
 \end{satz}

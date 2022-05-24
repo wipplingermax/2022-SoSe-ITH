@@ -13,17 +13,17 @@
 
     %%Abbildung8.1%%
     
-    Für eine Instanz $(p,I)$ des modizifizierten PCP über einem Alphabet bezeichnet die Folge 
+    Für eine Instanz $(p,I)$ des modifizierten PCP über einem Alphabet bezeichnet die Folge 
     $p = (u_1,v_1)...(u_n,v_n)$ für die $u_1,...,u_n \subseteq v_1,...v_n$ (oder umgekehrt) eine partielle Lösung von
     $(p,I)$. Wir wollen $(p_e,I_e)$ so wählen, dass partielle Lösungen von $(p_e,I_e)$ partiellen Rechenungen von $M_e$ entsprechen. 
-    Dabei codieren wir eine Konfiguation $(q,w,p) \in Q \times \Gamma^* \times \mathbb{N}_0$ von $M_e$ durch das Wort
+    Dabei codieren wir eine Konfiguration $(q,w,p) \in Q \times \Gamma^* \times \mathbb{N}_0$ von $M_e$ durch das Wort
     $code(q,w,p) := \#w(1)...w(p-1)*bin(q)*w(p)...w(\vert w \vert)\#$. \\
 
     Im wesentlichen wollen wir erreichen, dass es genau dann ein Wort $w$ eine partielle Lösung $(u_1,v_1)...(u_n,v_n)$
     von $(p_e,I_e)$ mit $w = v_1...v_n$ gilt, $w$ Präfix der Konkatination von $code(c_1)...code(c_n)$ der Codes von Konfigurationen
     einer partiellen Rechnung $c_1,...,c_n$ von $M_e$ bei Eingabe $\lambda$ ist
 
-    Eine partielle Lösung soll ganu dann zu einer Lösung von $(p_e,I_e)$ vervollständigt werden können, falls die durch $w$ berschriebene 
+    Eine partielle Lösung soll genau dann zu einer Lösung von $(p_e,I_e)$ vervollständigt werden können, falls die durch $w$ beschriebene 
     partielle Rechnung mit einer Stoppkonfiguration endet, also eine endl. Rechnung ist. Dann ist $(p_e, I_e)$ genau dann lösbar, wenn 
     die Rechnung von $M_e$ zur Eingabe $\lambda$ endlich ist. \\
 
@@ -35,14 +35,14 @@
     
     \begin{itemize}
         \item $p_e$
-        \item Für das kopieren von nicht veränderten Präfixen un Suffixen von Konfig: $(\#,\#),(\square,\square),(0,0),(1,1)$
+        \item Für das Kopieren von nicht veränderten Präfixen und Suffixen von Konfig: $(\#,\#),(\square,\square),(0,0),(1,1)$
         \item Für Schritte nach links $(\square \hat{q} a, \hat{q}' \square a), (0\hat{q} a, \hat{q} 0 a'), (1 \hat{q} a, \hat{q}' 1 a'), (\# \hat{q} a, \# \square \hat{q}'a')$
               für jede Instruktion $(q,a,q',a',L) \in \Delta$
         \item Für Instruktionen mit Bewegung S (stehenbleiben): $(\hat{q} a, \hat{q}',a') \\ \forall (q,a,q',a',S) \in \Delta $
-        \item Für Schrite nach rechts: $(\hat{q} a \square, a' \hat{q}' \square),(\hat{q} a 0, \hat{q}' a'0),(\hat{q} a 1, \hat{q}' a' 1), \\
+        \item Für Schritte nach rechts: $(\hat{q} a \square, a' \hat{q}' \square),(\hat{q} a 0, \hat{q}' a'0),(\hat{q} a 1, \hat{q}' a' 1), \\
         (\hat{q} a \#, a' \hat{q}' \square \#) \, \forall (q,a,q',a',R) \in \Delta$
         \item Für den Beginn der Vervollständigung zu einer Lösung, wenn eine Stoppkonfiguration erreicht wurde: \\
-              $(\hat{q} a, \dagger a) \, \forall q \in Q, n \in \Gamma$ für die $(q,a)$ nicht Bedingungsteil einer Instriktion in $\Delta$ ist.
+              $(\hat{q} a, \dagger a) \, \forall q \in Q, n \in \Gamma$ für die $(q,a)$ nicht Bedingungsteil einer Instruktion in $\Delta$ ist.
         \item Für den Abbau von Konfigurationen: $(\dagger 0, \dagger),(\dagger \square, \dagger),(\dagger1,\dagger)$ und $(0\dagger,\dagger),
               (1 \dagger,\dagger),(\square \dagger,\dagger)$
         \item Für den Abschluss $(\#\dagger\#0,0)$
@@ -56,7 +56,7 @@
 \end{bem}
 
 \begin{satz}{}
-    Für jedes Alpabet $\Sigma$ mit $\vert \Sigma \vert \geq 2$ ist $PCP_\Sigma$ nicht entscheidbar. \\
+    Für jedes Alphabet $\Sigma$ mit $\vert \Sigma \vert \geq 2$ ist $PCP_\Sigma$ nicht entscheidbar. \\
     \textbf{Beweis}: Mit Lemma 4.15, 4.16, 4.17 folgt $H_{init} \leq_m MPCP_{\{\square, 0,1,*,\dagger,\#\}} \leq_m PCP_{\{\square,0,1,*,\dagger,\#\}}
     \leq_m PCP_{Sigma}$.\\
     $\Leftrightarrow PCP_\Sigma$ ist nicht entscheidbar, da $H_{init}$ nicht entscheidbar ist. $\square$

@@ -26,13 +26,13 @@ Zudem können Sprachen $L \subseteq \{0,1\}^*$ auch als Teilmenge von $\mathbb{N
     \end{itemize}
 \end{defn}
 
-Die Deteils der Codierung von TM sind weitgehend unwichtig. Relevant ist, dass es eine effektive Codierung 
+Die Details der Codierung von TM sind weitgehend unwichtig. Relevant ist, dass es eine effektive Codierung 
 von TM durch Binärwörter $w \in \{0,1\}^*$ gibt, sodass folgendes gilt:
 \begin{itemize}
     \item Jede normierte TM hat einen Code.
     \item Die Sprache der Codes von TM ist entscheidbar. (Nicht trivial)
-    \item Codes können in geeignete Repäsentationen der durch sie codierten TM umgewandelt werden, die es 
-          insbesondere erlauben die codierten TM effetiv zu simulieren.
+    \item Codes können in geeignete Repräsentationen der durch sie codierten TM umgewandelt werden, die es 
+          insbesondere erlauben die codierten TM effektiv zu simulieren.
     \item Geeignete Repräsentationen von TM könnten effektiv in ihre Codes umgewandelt werden.
 \end{itemize}
 
@@ -53,7 +53,7 @@ von TM durch Binärwörter $w \in \{0,1\}^*$ gibt, sodass folgendes gilt:
 
 \begin{defn}{$U$}
     Es bezeichne $U$ die normierte DTM, die bei Eingabe $(e,x_1,...,x_n) \in \mathbb{N}_0^{n+1}$, wobei $n \in \mathbb{N}$ 
-    die normierte DTM $M_e$ bei Eingabe $(x_1,...,x_n)$ sumuliert und falls diese termiert die Ausgabe der Simulation ausgibt.
+    die normierte DTM $M_e$ bei Eingabe $(x_1,...,x_n)$ simuliert und falls diese terminiert die Ausgabe der Simulation ausgibt.
 \end{defn}
 
 \begin{defn}{universell}
@@ -81,7 +81,7 @@ Funktion umgewandelt werden kann.
     Betrachte die DTM $S$, die bei Eingabe $(e,x_1,...,x_n) \in \mathbb{N}^{m+1}_0$ wie folgt verfährt:
     \begin{itemize}
         \item Zunächst bestimmt $S$ den Code von $M_e$.
-        \item Der Code von $M_e$ wir dann in einem Code einer normierten TM umgewandlet,
+        \item Der Code von $M_e$ wir dann in einem Code einer normierten TM umgewandelt,
               die zunächst $x_1 \square x_2 \square ... \square x_m \square$ links neben
               die Eingabe schreibt und den Kopf auf das erste Feld links neben dem beschriebenen
               Bandteil bewegt und dann wie $M_e$ arbeitet.
