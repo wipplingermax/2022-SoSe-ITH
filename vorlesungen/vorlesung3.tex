@@ -1,7 +1,7 @@
 \vorlesung{3}{Turingmaschinen}{26.04.2022}
 
 Es bezeichne $\rightarrow_M$ die Relation auf der Menge der Konfiguration von $M$, 
-sodass $C \rightarrow_M C'$ genau dann für zwei Konfigurationen von $M$ gilt wenn $C'$ nachfolgekonfiguration von $C$ ist. 
+sodass $C \rightarrow_M C'$ genau dann für zwei Konfigurationen von $M$ gilt wenn $C'$ Nachfolgekonfiguration von $C$ ist. 
 
 \begin{defn}{Rechnung}
     Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine k-TM. \\
@@ -34,17 +34,17 @@ sodass $C \rightarrow_M C'$ genau dann für zwei Konfigurationen von $M$ gilt we
     Eine Stoppkonfiguration $(q,w_1,...,w_k,p_1,...,p_k)$ ist akzeptierend, wenn $q \in F$ gilt. \\
 
     Die akzeptierte Sprache $L(M)$ von $M$ ist die Sprache über $\Sigma$, sodass für alle $w \in \Sigma^*$ genau dann $w \in L(M)$ gilt,
-    wenn es eine endliche Rechnung $C_1,...,C_N$ von $M$ zur Eingabe $w$ gibt, ber der $C_n$ eine akzeptierte Stoppkonfigruration ist.
+    wenn es eine endliche Rechnung $C_1,...,C_N$ von $M$ zur Eingabe $w$ gibt, ber der $C_n$ eine akzeptierte Stoppkonfiguration ist.
 \end{defn}
 
 \begin{defn}{entscheidbar}
     Eine Sprache $L$ ist entscheidbar, wenn es eine \textbf{totale} k-TM mit akzeptierter Sprache $L$ gibt.\\
-    Wir schreiben $REC$ für die Klasse der entscheidbaren Sprachen. 
+    Wir schreiben $REC$ (engl. recursive) für die Klasse der entscheidbaren Sprachen. 
 \end{defn}
 
-\begin{defn}{rekursivaufzählbar}
+\begin{defn}{rekursiv aufzählbar}
     Eine Sprache $L$ ist rekursiv aufzählbar, wenn es eine k-TM mit akzeptierter Sprache $L$ gibt. \\
-    Wir schreiben $RE$ für die Klasse der aufzählbaren Sprachen.
+    Wir schreiben $RE$ (engl. recursively enumerable) für die Klasse der aufzählbaren Sprachen.
 \end{defn}
 
 \begin{bem}
