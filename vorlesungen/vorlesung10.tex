@@ -1,0 +1,155 @@
+\vorlesung{10}{Endliche Automaten}{24.05.2022}
+
+\section{Endliche Automaten}
+ 
+\textbf{Ziel:}\\
+TM starkt einschränken. \\
+"keine Bänder" (geht nicht ganz wegen Eingabe)\\
+
+\textbf{Genauer:}
+\begin{itemize}
+    \item nur ein Band
+    \item Bei jedem Rechnungschritt nur Bewegung nach rechts (Konvention alle Zeichen bleiben bestehen) + Zustandswechsel
+    \item Beim Einlesen des ersten $\square$ Symbols muss die Rechnung der Maschine enden. (und sie darf auch nicht vorher enden)
+\end{itemize} 
+
+Wir betrachten TM der Form $M = (Q, \Sigma, \Sigma \cup \{\square\}, \Delta, s, F)$ wobei
+die Instuktionen in $\Delta$ von der Form $(q,a,q',a',R)$ sind. \\
+$\Rightarrow$ Starke Vereinfachung (rechtfertigt neuen Namen)
+
+\begin{defn}{endlicher Automat}
+    Ein \textbf{endlicher Automat}, kurz EA, ist ein Tupel $A = (Q, \Sigma, \Delta, s,F)$.
+    Dabei ist
+    \begin{itemize}
+        \item $Q$ eine endl. Menge; Zustandsmenge
+        \item $\Sigma$ das Eingabealphabet
+        \item $\Delta \subseteq Q \times \Sigma \times Q$ die Übergangsrelation, 
+              sodass es für jedes $q \in Q$ und $a \in \Sigma$ ein $q' \in Q$ gibt mit 
+              $(q,a,q') \in \Delta$
+        \item $s \in Q$ der Startzustand
+        \item $F \subseteq Q$ die Menge der akzeptierten Zustände
+    \end{itemize}
+
+    Der endliche Automat $A$ ist ein \textbf{det,rministischer endl. Automat}, kurz DEA,
+    wenn es für alle $(q,a) \in Q \times \Sigma$ genau ein $q' \in Q$ gibt mit $(q,a,q') \in A$ \\
+
+    Im Sinne der obigen Betrachtung entpsricht ein EA $A=(Q, \Sigma, \Delta, s, F)$ der 1-TM \\
+    $M_A = (Q, \Sigma, \Sigma \cup \{\square\},\{q,a,q',a,R:(q,a,q') \in \Delta\},s,F)$.
+\end{defn}
+
+\begin{defn}{Übergangsfunktion eines EA}
+    Sei $A=(Q, \Sigma, \Delta, s,F)$ ein EA. Die \textbf{Übergangsfunktion} von $A$ ist die Funktion
+    $\delta_A : Q \times \Sigma \rightarrow 2^Q$ mit $\delta_A(q,a) = \{q' \in Q : (q,a,q') \} \in \Delta \} \, \forall q \, \forall a$ \\
+
+    Die \textbf{erweiterte Übergangsfunktion} von $A$ ist die Funktion $\delta_A^* : Q \times \Sigma^* \rightarrow 2^Q$\\
+    mit $\delta^*_A(q,\lambda) = \{q\}$ und $\delta_A^*(q,aw)= \bigcup\limits_{q' \in \delta_A(q,a)} \delta_A^* (q',w) \, \forall q \in Q, a \in \Sigma$ 
+    und $w \in \Sigma^*$. \\
+
+    Für $Q_0 \subseteq Q$ und $w \in \Sigma^*$ schreiben wir auch $\delta_A^*(Q_0,w)$ statt $\bigcup\limits_{q' \in Q_0} \delta_A^*(q,w)$. \\
+
+    Für einen EA $A = (Q,\Sigma, \Delta, s, F)$ mit entsprechender TM $M_A = (Q, \Sigma, \Gamma, \Delta',s,F)$ und $q \in Q$ und $w \in \Sigma^*$ ist
+    $\delta_A(q,w)$ die Menge der Zustände, die sich als erste Komposition der letzten Konfiguration einer Rechnung einer TM = $(Q, \Sigma, \Gamma, \Delta',q,F)$ zu Eingabe $w$
+    ergeben. Insbesondere ist $\delta_A^*(s,w)$ die Menge der Zustände, die sich als erste Komposition der letzten Konfiguration einer Rechnung von $M_A$ bei 
+    Eingabe $w$ ergeben.
+\end{defn}
+
+\begin{bem}
+    Sei $A = (Q, \Sigma, \Delta, s, F)$ ein EA
+    \begin{enumerate}
+        \item $\forall q \in Q, a \in \Sigma$ gilt $\delta^*_A(q,a) = \delta_A(q,a)$.
+        \item Ist $A$ ein DEA, $q \in Q, a \in \Sigma, w \in \Sigma^*$, so gilt  $|\delta_A(q,a)| = 1$ und $|\delta^*_A(q,w) =1$.
+        \item Seien $u,v \in \Sigma^*$. $\forall q \in Q$ gilt $\delta^*_A(q,uv)=\delta^*_A(\delta^*_A(q,u),v)$ 
+              und $\forall \, Q_0 \subseteq Q$ gilt $\delta^*_A(Q_0,uv) = \delta^*_A(\delta^*_A(Q_0,u),v)$.
+    \end{enumerate}
+\end{bem}
+
+\begin{defn}{Übergangsfunktion eines DEA}
+    Sei $A = (Q,\Sigma,\Delta,s,F)$ ein DEA. \\
+    
+    Die \textbf{Übergangsfunktion} von $A$ ist die Funktion $\delta_{det,A}: Q \times \Sigma \rightarrow Q$ mit
+    $\delta^*_A(q,a) = \{\delta^*_{det,A}(q,a)\} \, \forall q \forall a$ \\
+
+    Die \textbf{erweiterte Übergangsfunktion} von $A$ ist die Funktion $\delta^*_{det,A} : Q \times \Sigma^* \rightarrow Q$
+    mit $\delta^*_A(q,w) = \{\delta^*_{det,A}(q,w)\} \, \forall q \in Q \, \forall w \in \Sigma$ \\
+
+    Für $Q_0 \subseteq Q$ und $w \in \Sigma^*$ schreiben wir auch $\delta^*_A(Q_0,w)$ statt $\bigcup\limits_{q \in Q_o}\{\delta^*_A(q,w)\} = \delta^*_A(Q_0,w)$.
+\end{defn}
+
+\begin{bem}
+    Ist $A$ ein DEA, so gelten Bemerkung 5.3 (i) und (iii) auch wenn $\delta_A$ durch $\delta_{det,A}$ und $\delta^*_{det,A}$ ersetzt wird.
+\end{bem}
+
+\begin{bem}
+    Sie Q eine endliche Menge, $\Sigma$ ein Alphabet, $s \in Q$ und $F \subseteq Q$. \\
+    \begin{enumerate}
+        \item Für alle Funktionen $\delta : Q \times \Sigma \rightarrow 2^Q$ gibt es genau einen EA $A = (Q,\Sigma,\Delta,s,F)$ mit $\delta_A = \delta$.
+        \item Für alle Funktionen $\delta : Q \times \Sigma \rightarrow Q$ gibt es genau einen DEA $A =(Q,\Sigma, \Delta, s,F)$ mit $\delta_{det,A} = \delta$.
+    \end{enumerate}
+\end{bem}
+
+\begin{defn}{akzeptierte Sprache}
+    Sei $A = (Q,\Sigma, \Delta,s,F)$ ein EA. Die Sprache $L(A) := \{w \in \Sigma^* : \delta^*_A(s,w) \cap F \neq \emptyset\}$ ist die \textbf{akzeptierte Sprache} von $A$.
+\end{defn}
+
+\begin{defn}{regulär}
+    Eine Sprache $L$ heißt \textbf{regulär}, wenn es einen EA $A$ mit $L(A) = L$ gibt. Wir schreiben REG für die Menge aller regulären Sprachen. \\
+
+    Da EA viel einfacher sind als TM, kann man leicht visuelle Darstellungen finden
+\end{defn}
+
+\begin{exam}
+    Sei $A := (\{q_0,q_1\},\{0,q\},\Delta,q_0,\{q1\})$ der EA mit \\
+    $\Delta = \{(q_0,0,q_0),(q_0,1,q_1),(q_1,0,q_1),(q_1,1,q_0)\}$. \\
+
+    %% Hier ist eine Abbildung des Automaten
+
+    $L(A) = \{w \in \Sigma^* : \#_1(w) = 1 \text{ mod } 2\}$. \\
+
+    \textbf{Erinnerung:} Nichtdet, TM sind nicht mächter als TM bezüglich der Menge an Sprache, die sie entscheiden können.\\
+
+
+    $\leadsto$ Ähnliches gilt für EA.
+\end{exam}
+
+\begin{defn}{Potenzautomat}
+        Sei $A = (Q,\Sigma,\Delta,s,F)$ ein EA. \\
+
+        Der \textbf{Potenzautomat} $P_A$ von $A$ ist der DEA \\
+        $P_A = (2^Q, \Sigma, \Delta', \{s\},\{P \subseteq P \cap F \neq \emptyset\})$ \\
+        mit $\delta_{det,P_A}(Q_0,a) = \bigcup\limits_{q \in Q_0} \delta_A(q,a) \, \forall Q_0 \subseteq Q, a \in \Sigma$.
+\end{defn}
+
+\begin{satz}{}
+    Eine Sprache $L$ ist genau dann regulär, wenn es einen DEA $A$ gibt mit $L(A)=L$. \\
+
+    \textbf{Beweis:} Sei $A = (Q,\Sigma,\Delta,s,F)$ ein EA mit Potenzautomat $P_A$. \\
+    Es genügt zu zeigen, dass $L(A) = L(P_A)$ gilt. \\
+
+    Hierfür genügt es zu zeigen, dass \\
+    $\delta^*_{det,P_A}(\{s\},w) = \delta^*_A(\{s\},w)$. $ \color{red}{(*)}$ \\
+
+    Gilt $\forall w \in \Sigma^*$, denn damit folgt
+    \begin{align*}
+        w \in L(P_A) &\Leftrightarrow \sigma^*_{P_A}(\{s\},w) \cap \{P \subseteq Q : P \cap F \neq \emptyset\} \neq \emptyset \\
+        &\Leftrightarrow \delta^*_{det,P_A}(\{s\},w) \cap F \neq \emptyset \\
+        &\Leftrightarrow \delta^*_A(s,w) \cap F \neq \emptyset \\
+        &\Leftrightarrow w \in L(A).
+    \end{align*}
+
+    Wir zeigen $\color{red}{(*)}$ mittels vollständiger Induktion über $|w|$. \\
+
+    Es gilt $\delta^*_{det,P_A}(\{s\},\lambda) = \{s\} = \delta^*_A(s,\lambda).$ \\
+
+    Sei nun $w \in \Sigma^+$ mit $\delta^*_{det,P_A}(\{s\},v) = \delta^*_A(s,v) \forall v \in \Sigma^{\leq|w|-1}$ \\
+
+    Sei $v := w(1)w(2),...,w(|w|-1)$ und $a := w(|w|)$ \\
+
+    Dann gilt: 
+    \begin{align*}
+        \delta^*_{det,P_A}(\{s\},w) &= \delta^*_{det,P_A}(\delta^*_{det,P_A}(\{s\},v),a) \\
+        &= \delta_{det,P_A}(\delta^*_A(s,v),a) \\
+        &= \bigcup\limits_{q \in \delta^*_A(s,v)}\delta_A(q,a) \\
+        &= \delta^*_A(\delta^*_A(s,v),a) \\
+        &= \delta^*_A(s,w) \; \square
+    \end{align*}
+\end{satz}

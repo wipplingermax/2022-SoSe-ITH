@@ -146,3 +146,20 @@ pdfauthor=\@author
         \vspace{0.7em}
     \end{shaded} 
 }
+
+\newtheoremstyle{tsexam}
+{}{}{}{}{\bfseries}{}{\newline}{}
+\theoremstyle{tsexam}
+\newtheorem{vl@exam}[vl@defn]{Beispiel }
+\newenvironment{exam}{    
+    \vspace{0.3em}
+    \colorlet{shadecolor}{gray!10}
+    \begin{shaded}
+        \vspace{-0.5em}
+        \begin{vl@exam}
+        \end{vl@exam}
+        \vspace{-2em}
+}{
+        \vspace{0.3em}
+    \end{shaded}
+}
