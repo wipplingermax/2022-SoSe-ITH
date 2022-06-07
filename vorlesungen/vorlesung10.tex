@@ -30,10 +30,10 @@ $\Rightarrow$ Starke Vereinfachung (rechtfertigt neuen Namen)
         \item $F \subseteq Q$ die Menge der akzeptierten Zustände
     \end{itemize}
 
-    Der endliche Automat $A$ ist ein \textbf{det,rministischer endl. Automat}, kurz DEA,
+    Der endliche Automat $A$ ist ein \textbf{deterministischer endl. Automat}, kurz DEA,
     wenn es für alle $(q,a) \in Q \times \Sigma$ genau ein $q' \in Q$ gibt mit $(q,a,q') \in A$ \\
 
-    Im Sinne der obigen Betrachtung entpsricht ein EA $A=(Q, \Sigma, \Delta, s, F)$ der 1-TM \\
+    Im Sinne der obigen Betrachtung entspricht ein EA $A=(Q, \Sigma, \Delta, s, F)$ der 1-TM \\
     $M_A = (Q, \Sigma, \Sigma \cup \{\square\},\{q,a,q',a,R:(q,a,q') \in \Delta\},s,F)$.
 \end{defn}
 
@@ -94,7 +94,7 @@ $\Rightarrow$ Starke Vereinfachung (rechtfertigt neuen Namen)
 \begin{defn}{regulär}
     Eine Sprache $L$ heißt \textbf{regulär}, wenn es einen EA $A$ mit $L(A) = L$ gibt. Wir schreiben REG für die Menge aller regulären Sprachen. \\
 
-    Da EA viel einfacher sind als TM, kann man leicht visuelle Darstellungen finden
+    Da EA viel einfacher sind als TM, kann man leicht visuelle Darstellungen finden.
 \end{defn}
 
 \begin{exam}
@@ -105,7 +105,7 @@ $\Rightarrow$ Starke Vereinfachung (rechtfertigt neuen Namen)
 
     $L(A) = \{w \in \Sigma^* : \#_1(w) = 1 \text{ mod } 2\}$. \\
 
-    \textbf{Erinnerung:} Nichtdet, TM sind nicht mächter als TM bezüglich der Menge an Sprache, die sie entscheiden können.\\
+    \textbf{Erinnerung:} Nichtdet. TM sind nicht mächter als TM bezüglich der Menge an Sprachen, die sie entscheiden können.\\
 
 
     $\leadsto$ Ähnliches gilt für EA.
