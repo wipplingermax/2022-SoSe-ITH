@@ -1,0 +1,94 @@
+\vorlesung{13}{Formale Grammatiken}{07.06.2022}
+
+\section{Formale Grammatiken}
+
+\textbf{Ziel:}\\
+Sprachen nicht über Berechnungsmodelle bilden, sondern direkt.\\
+\\
+\textbf{Beispiel:}\\
+$L = \{0\}^*$\\
+$S \to S0 \to S0000 \to 0000$
+
+\begin{defn}{Grammatik}
+Eine Grammatik ist ein Tupel $G = (N, T, P, S)$. Dabei ist
+\begin{itemize}
+    \item $N$ das Alphabet der Nichtterminalsymbole/Variablen
+    \item $T$ das Alphabet der Terminalsymbole mit $N \cap T = \emptyset$
+    \item $P \subseteq ((N \cup T)^* \setminus T^*) \times (N \cup T)^*$ eine endliche Menge von Regeln, wobei wir für das Paar $(u, v) \in P$ auch $u \to v$ schreiben
+    \item $S \in N$ das Startsymbol
+\end{itemize}
+Eine \textbf{Satzform} von G ist ein Wort $s \in (N \cup T)^*$ und ein Terminalwort von $G$ ist ein Wort $t \in T^*$
+\end{defn}
+
+\begin{defn}{Ableitung}
+Sei $G = (N, T, P, S)$ eine Grammatik. Eine Satzform $w'$ von $G$ ist in einem Schritt von der Satzform $w$ ableitbar, wenn es Satzformen $u, v, x, y$ gibt, so dass
+$$ w = xuy, u \to v \in P \text{ und } w' = xvy $$
+gelte. Es bezeichne $\to_G$ die Relation auf der Menge der Satzformen von $G$, so dass $w \to_G w'$ genau dann für Satzformen $w, w'$ von $G$ gilt, wenn $w'$ in einem Schritt aus $w$ ableitbar ist.
+Für eine Satzform $w$ von $G$ und ein Nichtterminalsymbol $X \in N$ ist eine \textit{Ableitung} von $w$ aus $X$ in $G$ eine Folge $X = w_1, ..., w_n = w$ mit $w_i \to_G w_{i+1} \forall i \in [n-1]$ und eine Ableitung von $w$ in $G$ ist eine Ableitung von $w$ eines $S$.
+\end{defn}
+
+\begin{defn}{Erzeugte Sprache}
+Sei $G = (N, T, P, S)$ eine Grammatik. Die von $G$ \textbf{erzeugte Sprache} $L(G)$ ist die Menge der Wörter $w \in T^*$ für die es eine Ableitung von $w$ in $G$ gibt.
+\end{defn}
+
+\begin{satz}{}
+Eine Sprache ist genau dann rekursiv aufzählbar, wenn sie von einer Grammatik erzeugt wird.\\
+\\
+\textbf{Beweisidee:}
+Gegeben eine Grammatik, ist es halbwegs einfach eine TM anzugeben, die die Ableitungen der Grammatik erzeugt.\\
+Gegeben eine det. 1-TM kann man ähnlich zu unserem Vorgehen beim Postschen Korrespondenzproblem das Verhalten der TM mit nur endlich vielen Regeln simulieren.
+\end{satz}
+
+\begin{defn}{rechtslinear}
+Eine Grammatik $G = (N, T, P, S)$ ist \textbf{rechtslinear}, wenn alle Regeln von $G$ der Form
+$$ X \to uY \text{ oder } X \to v $$
+mit $X, Y \in N$ und $u \in T^*$ sind.
+\end{defn}
+
+\begin{satz}{}
+Eine Sprache ist genau dann regulär, wenn sie von einer rechtslinearen Grammatik erzeugt wird.\\
+\\
+\textbf{Beweisidee:} Zunächst überzeugt man sich, dass eine Sprache $L$ genau dann von einer rechtslinearen Grammatik erzeugt wird, wenn sie von einer Grammatik $G = (N, T, P, S)$ erzeugt wird, bei der alle Regeln von der Form
+$$ X \to aY \text{ oder } X \to \lambda $$
+mit $X, Y \in N$ und $a \in T$ sind.\\
+\\
+Eine solche Grammatik wird als \textbf{Grammatik in Simulationsform} bezeichnet. Die Sprache $L$ ist dann erkannte Sprache des endlichen Automaten
+$$ A = (N, T, \Delta, S, \{X \in N : X \to \lambda \in P \})$$
+mit 
+$$ \Delta = \{ (X, a, Y) \in N \times T \times N : X \to aY \in P \} $$
+\\
+\textbf{Bemerkung:} Wir lassen hier auch EA zu, die stecken bleiben dürfen, d.h. es kann Zustände geben, wo man beim Einlesen eines Symbols nicht weiß, in welchen Zustand der EA wechselt.
+\end{satz}
+
+
+\begin{exam}
+Die Sprache $\{0\}^*$ wir von der rechtslinearen Grammatik
+$$ G = (\{S\}, \{0, 1\}^*, \{S \to \lambda, S \to 0S\}, S) $$
+erzeugt und vom EA
+$$ A = (\{S\}, \{0, 1\}^*, \{(S, 0, S)\}, S, \{S\}) $$
+erkannt.
+\end{exam}
+
+\begin{defn}{kontextfrei}
+Eine Grammatik $G = (N, T, P, S)$ ist \textit{kontextfrei}, wenn alle Regeln von $G$ von der Form $ X \to w $ mit $X \in N$ und $w \in (N \cup T)^*$ sind. Eine Sprache heißt kontextfrei, wenn sie von einer kontextfreien Grammatik erzeugt wird. Die Menge aller kontextfreien Sprachen bezeichnen wir mit $CF$.
+\end{defn}
+
+\begin{bem}
+Die Konstruktion von Kellerautomaten folgt den folgenden Ideen:
+\begin{itemize}
+    \item Es handelt sich im wesentlichen um Automaten, die nicht wie TM zusätzlich ein Band zur freien Verfügung haben, sondern stattdessen einen Stack/Keller.
+    \item Zustandsübergänge hängen vom Zustand des Kellerautomaten, vom eingelesenen Symbol und vom Symbol oben auf dem Stack ab.
+    \item Bei jedem Schritt wird das oberste Kellersymbol entfernt und es werden nacheinander die Symbole eines Wortes über dem Kelleralphabet oben auf den Stack gelegt.
+\end{itemize}
+\end{bem}
+
+\begin{satz}{}
+Eine Sprache wird genau dann von einem Kellerautomaten erkannt, wenn sie kontextfrei ist.
+\end{satz}
+
+\begin{exam}
+Die Sprache $\{0^n, 1^n : n \in \N \}$ wird von der kontextfreien Grammatik
+$$ G = (\{S\}, \{0, 1\}^*, \{S \to 0S1, S \to \lambda \}, S) $$
+erzeugt.\\
+Ein Kellerautomat könnte diese Sprache erkennen, indem er zusätzlich dazu, dass nur Eingaben der Form $0^m 1^n$ akzeptiert werden, für jede $0$ eine $0$ auf den Stack legt und für jede eingelesene $1$ eine $0$ auf dem Stack wieder löscht.
+\end{exam}
