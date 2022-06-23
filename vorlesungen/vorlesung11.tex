@@ -106,13 +106,13 @@
     Es gelten $f(s) = [\lambda]_\sim$ und $f(F) = \{[w]_\sim : w \in L(A)\}$.\\
     Es genügt zu zeigen, dass $\delta'(f(q), a) = f(\delta^*(q, a)) \quad \forall q \in Q, a \in \Sigma$.\\
     Sei $q \in Q, a \in \Sigma$ und $w \in \Sigma^*$.\\
-    Es genügt zu zeigen, dass $w \in \detla'(f(q), a) \iff \delta^*(s, w) = \delta^*(q, a)$.\\
+    Es genügt zu zeigen, dass $w \in \delta'(f(q), a) \iff \delta^*(s, w) = \delta^*(q, a)$.\\
     Sei $v \in \Sigma^*$ mit $\delta^*(s, v) = q$.\\
     \begin{flalign*}
         w \in \delta'(f(q), a) \iff & w \in \delta'([v]_\sim, a) \\
         \iff & w \sim va\\
         \iff & \delta^*(s, w) = \delta^*(s, va)\\
-        \iff & \delta^*(s, w) = \detla^*(q, a)
+        \iff & \delta^*(s, w) = \delta^*(q, a)
     \end{flalign*}
     
     (ii) Sei $\Sigma$ ein Alphabet, $\sim$ eine Rechtskongruenz auf $\Sigma^*$, $L$ eine Vereinigung von Äquivalenzklassen von $\sim$, $A := A_{\sim, L} = (\nicefrac{\Sigma^*}{\sim}, \Sigma, \Delta', [\lambda]_\sim, \{[w]_\sim :  w \in L\})$,\\
