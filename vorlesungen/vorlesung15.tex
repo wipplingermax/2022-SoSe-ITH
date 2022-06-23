@@ -1,0 +1,97 @@
+\vorlesung{15}{Zeitkomplexität}{16.06.2022}
+\section{Zeitkomplexität}
+
+Im Folgenden beschränken wir ähnlich zum linear beschränkten Automaten die zur Verfügung stehenden Resourcen von TM.\\
+Zwei Möglichkeiten: Platz (Bandlänge) und Zeit (Rechenschritte)\\
+
+Drei Blickwinkel:\\
+Gegeben eine Menge an möglichen Elementen\\
+\begin{tabular}{ll}
+     - best-case-Komplexität & geringe Anzahl an Rechenschritten \\
+     - average-case-Komplexität & durchschnittliche Anzahl an Rechenschritten \\
+     - worst-case-Komplexität & höchste Anzahl an Rechenschritten
+\end{tabular}
+
+\begin{defn}{Rechenzeit}
+    Sei $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ eine DTM. Es bezeichne $ time_M : \Sigma^* \to \N_0 $ die partielle Funktion mit $dom(time_M) = dom(\varphi_M)$, so dass $time_M(w) \quad \forall w \in dom(\varphi_M)$ die Länge der Rechnung von $M$ zur Eingabe $w$ ist. Die \textbf{Rechenzeit} von $M$ zur Eingabe $w \in dom(\varphi_M)$ ist $time_M(w)$.
+\end{defn}
+
+\begin{defn}{zeitbeschränkt}
+    Eine \textbf{Zeitschranke} ist eine berechenbare Funktion $t : \N_0 \to \N_0$ und $t(n) > n \forall n \in \N_0$\\
+    Sei $t : \N_0 \to \mathbb{R}_0$ eine Funktion. Eine TM $M = (Q, \Sigma, \Gamma, \Delta, s, F)$ ist $t$ \textit{zeitbeschränkt}, wenn $M$ total ist und es ein $n_0 \in \N_0$ gibt, so dass $\forall w \in \Sigma^{\geq n_0}$ alle Rechnungen von $M$ zur Eingabe $w$ höchstens Länge $t(|w|)$ haben.\\
+    Wir sagen oft $3n^2$-zeitbeschränkt wenn wir meinen $t$-zeitbeschränkt wobei $t : \N_0 \to \N_0$ mit $n \mapsto 3n^2$.
+\end{defn}
+
+\begin{satz}{lineare Beschleunigung}
+    Sei $c > 1$ und $\epsilon > 0$. Sei $t : \N_0 \to \mathbb{R}_{\geq 0}$ mit $t(n) \geq c(t \epsilon n) \forall n \in \N_0 $. Ist $M$ eine ct-zeitbeschränkte k-TM (mit $k \geq 2$), so gibt es eine t-zeitbeschränkte k-TM $M'$ mit $L(M') = L(M)$.\\
+    In gewissem Sinne invers zum Alphabetwechsel auf $\{0, 1\}$ bzw. Bandalphabet $\{0, 1, \square\}$.
+\end{satz}
+
+\begin{satz}{Alphabetwechsel}
+	Ist $M$ eine $t(n)$-zeitbeschränkte k-TM $M$ mit Eingabealphabet $\{0, 1 \}$, so gibt es eine Konstante $c \geq 1$ und eine $c * t(n)$-zeitbeschränke k-TM $M'$ mit Eingabealphabet $\{0, 1\}$, Bandalphabet $\{0, 1, \square\}$ und $L(M') = L(M)$.
+\end{satz}
+
+\begin{defn}{}
+	Für eine Funktion $f : \N_0 \to \mathbb{R}_{\leq 0}$ sei
+	$$ o(f) := \{g : \N_0 \to \mathbb{R}_{\geq 0}\} : \forall \epsilon > 0 \exists n_0 \in \N : \forall n \geq n_0 : g(n) \leq \epsilon f(n) $$
+		$$ O(f) := \{g : \N_0 \to \mathbb{R}_{\geq 0}\} : \exists c > 0 \exists n_0 \in \N : \forall n \geq n_0 : g(n) \leq c f(n) $$
+		$$ \Theta(f) := \{g : \N_0 \to \mathbb{R}_{\geq 0}\} : \exists\epsilon, c > 0 \exists n_0 \in \N : \forall n \geq n_0 : \epsilon f(n) \leq g(n) \leq c f(n) $$
+		$$ \Omega(f) := \{g : \N_0 \to \mathbb{R}_{\geq 0}\} : \exists\epsilon > 0 \exists n_0 \in \N : \forall n \geq n_0 : \epsilon f(n) \leq g(n) $$
+		$$ \omega(f) := \{g : \N_0 \to \mathbb{R}_{\geq 0}\} : \forall c > 0 \exists n_0 \in \N : \forall n \geq n_0 : g(n) \geq c f(n) $$
+		
+\end{defn}
+
+\begin{bem}
+	Seien $f, g : \N_0 \to \mathbb{R}_\{\geq 0\}$ Funktionen. Es gelten folgende Aussagen
+	\begin{enumerate}[label=(\roman*)]
+    		\item $g \in o(f) \iff f \in \omega(g)$
+    		\item $g \in O(f) \iff f \in \Omega(g)$
+	    	\item $g \in \Theta(f) \iff (g \in O(f) \text{ und } g \in \Omega(f))) $
+	\end{enumerate}
+\end{bem}
+
+\begin{bem}
+	Seien $f, g : \N_0 \to \mathbb{R}_{\geq 0}$ Funktionen, so dass $f^{-1}(0)$ endlich ist. Es gelten folgende Aussagen:
+	\begin{enumerate}[label=(\roman*)]
+    		\item $g \in o(f) \iff \underset{n \to \infty}{\lim} \frac{g(n)}{f(n)} = 0$
+    		\item $g \in O(f) \iff \underset{n \to \infty}{\limsup} \frac{g(n)}{f(n)} < \infty$
+    		\item $g \in \Omega(f) \iff \underset{n \to \infty}{\liminf} \frac{g(n)}{f(n)} > 0$
+    		\item $g \in \omega(f) \iff \underset{n \to \infty}{\lim} \frac{g(n)}{f(n)} = 1$
+	\end{enumerate}
+	
+	\textbf{Achtung:} Man schreiben oft $g = O(f)$ anstatt $g \in O(f)$ (und analog für die anderen Fälle).\\
+	
+	Binärpalindrome = alle Binärwörter, die von vorne und hinten gelesen dasselbe ergeben\\
+	Für $w \in \Sigma*$ sei $w^R = w(|w|) w(|w|-1) ... w(1)$\\
+	Binärpalindrome = $\{w \in \{0, 1\}^* w = w^R\}$
+\end{bem}
+
+
+\begin{prop}{}
+    Es gibt eine $t(n)$-zeitbeschränkte DTM mit $L(M) = \{w \in \{0, 1\}^* : w = w^R\}$ und $t(n) = O(n)$\\
+    
+    \textbf{Beweis:} Offensichtlich
+\end{prop}
+
+\begin{satz}{}
+    Ist $M$ eine $t(n)$-zeitbeschränkte 1-TM mit $L(M) = \{w \in \{0, 1\}^* : w = w^R\}$ so gilt $t(n) = \Omega(n^2)$\\
+    
+    \textbf{Beweis:} Sei $M$ eine $t(n)$-zeitbeschränkte 1-TM mit Eingabealphabet $\{0, 1\}, L = \{w w^r : w \in \{0, 1\}^*\} \subseteq L(M)$ und $t(n) \neq \Omega(n^2)$. Dann zeigen wir $L \neq L(M)$.\\
+    Wir können annehmen, dass es eine 1-TM $M'$ gibt, die arbeitet wie $M$, aber  den Kopf wieder an den Anfang fährt und $M'$ ist $2t(n)$-zeitbeschränkt.\\
+    Sei $R$ endl. Rechnung von $M'$.
+    Dann sei $C_i(R)$ die Folge $q_1, ..., q_l$ eine Zuständen von $M'$, sodass $M'$ während der Rechnung $R$ insgesamt $l$ mal zwischen $i$ und $j$ wechselt sodass $q_j, j \in [l]$ der Zustand ist, in dem sich $M'$ unmittelbar vor dem Ausführen der Anweisung befindet, die das $j$-te übertreten auslöst. Die wesentliche Eigenschaft dieser Crossing Sequenz ist folgende: Ist $R$ eine akzeptierte Rechnung von $M'$ zu einer Eingabe $v$ und sind $i \in [|u|]$ und $j \in [|v|]$ mit $C_i(R) = C_j(s)$, so gilt
+    $$ u(1) ... u(i) u(j+1) ... v(|v|) \in L(M') $$
+    Sei $\epsilon := \nicefrac{1}{300 log_2(|Q|)}$. Aus $t(n) \neq \Omega(n^2)$ folgt es gibt $n$ groß genug mit $t(n) \leq \epsilon n^2$ (und $\epsilon n \geq 1$).\\
+    $n' := \lfloor \frac{n}{4} \rfloor$\\
+    Für jedes Wort $w \in L' := \{w' 0^{n-2n'}(w')^R : w' \in \Sigma^{=n'}\} \subseteq L$ betrachten wir die längste Crossing Seq. $C_w \in \{C_{n'}(R), ..., C_{n-n'}(R)\}$ einer akzeptierten Rechnung $R$ von $M'$ zur Eingabe $w$.\\
+    $\forall R$ Rechnung zur Eingabe $w$ gilt\\
+    $$ \overset{n-n'}{\underset{i=n'}{\sum}} |C_i(R)| \leq 2 t(n) $$
+    wobei wir $|C|$ für Länge einer Crossing Seq. schreiben. Für jedes Wort $w \in \Sigma^{=n}$ folgt damit
+    $$ |C_w| \leq \frac{2 t(n)}{n-2n' + 1} \leq \frac{4 t(n)}{n-2 \lfloor \frac{n}{4} \rfloor} \leq \frac{4 \epsilon n^2}{n-2 \lfloor \frac{n}{4} \rfloor} \leq 16 \epsilon n $$
+    Die ANzahl der Crossing Seq. von $M'$ mit Länge höchstens $16 \epsilon n$ ist höchstens
+    $$ (|Q| + 1)^{16 \epsilon n} \leq |Q|^{32 \epsilon n} < 2^{n'} $$
+    Die Anzahl der Wörter in $L'$ ist $2^{n'}$. Somit gibt es zwei verschiedene Wörter $u, v \in L'$ und $i \in [|u|]$ und $j \in [|v|]$ mit $C_u = C_v$.\\
+    $\implies \exists$ Präfix $u'$ von $u$ und Suffix $v'$ von $v$ mit $|u'| \geq n', |v'| \geq n'$ sodass $u' v' \in L(M') = L(M)$. Da aber $u$ und $v$ verschieden sind, gilt $L(M) \neq L$.\hspace*{\fill}$\square$
+\end{satz}
+
+

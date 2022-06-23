@@ -1,0 +1,128 @@
+\vorlesung{11}{Reguläre Sprachen}{26.05.2022}
+\section{Reguläre Sprachen}
+
+\textbf{Fokus:} EA $\to$ Sprachen, die von EA erkannt werden (reguläre Sprachen)
+
+\begin{defn}{Aquivalenzrelation}
+    Sei $A$ eine Menge. Eine \textbf{Äquivalenzrelation} auf $A$ ist eine Relation $\sim \subseteq A^2$, so dass folgende Eigenschaften gelten:
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item $x \sim x \forall x \in A$ (Reflexivität)
+        \item $x \sim y \implies y \sim x \forall x, y \in A$ (Symmetrie)
+        \item $x \sim y \land y \sim z  \implies x \sim z$ (Transitivität)
+    \end{enumerate}
+    
+    Die \textbf{Äquivalenzklasse} eines Elements $a \in A$ bez. $\sim$ ist die Menge $[a] = [a]_\sim := \{a' \in A : a' \sim a\}$. Der \textbf{Index} von $\sim$ ist die Kardinalität der Menge $\nicefrac{A}{\sim} := \{[a]_\sim : a \in A\}$ flass diese endlich ist, sonst $\infty$.
+\end{defn}
+
+\begin{defn}{A-Äquivalenz}
+    Sei $A = (Q, \Sigma, \Delta, s, F)$ ein DEA mit erweiterter Übergangsrelation $\delta^* : Q \times \Sigma^* \to Q$. Die \textbf{A-Äquivalent} ist die Relation $\sim_A$ auf $\Sigma^*$ und
+    $$u \sim_A v \iff \delta^*(s, u) = \delta^*(s, v) \quad \forall u, v, \in \Sigma^*$$
+\end{defn}
+
+\begin{bem}
+    Sei$A = (Q, \Sigma, \Delta, s, F)$ ein DEA.
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item Die A-Äquivalenz ist eine Äquivalenzrelation
+        \item Der Index von $\sim_A$ ist höchstens $|Q|$
+        \item Es gilt $L(A) = \underset{w \in L(A)}{\cup} [w]_{\sim_A}$
+    \end{enumerate}
+\end{bem}
+
+\begin{defn}{Rechtskongruenz}
+    Sei $\Sigma$ ein Alphabet. Die \textbf{Rechtskongruenz} auf $\Sigma^*$ ist eine Äquivalenzrelation $\sim \subseteq (\Sigma^*)^2$ mit $u \sim v \implies uw \sim vw \quad \forall u, v, w \in \Sigma^*$.
+\end{defn}
+
+\begin{prop}{}
+    Sei $A = (Q, \Sigma, \Delta, s, F)$ ein DEA. Die A-Äquivalenz $\sim_A$ ist eine Rechtskongruenz auf $\Sigma^*$.\\
+    
+    \textbf{Beweis:} Seien $u, v, w \in \Sigma^*$ mit $u \sim_a v$.
+    $$\delta^*_{det, A}(s, uw) = \delta^*_{det, A}(\delta^*_{det, A}(s, u), w) = \delta^*_{det, A}(\delta^*_{det, A}(s, v), w) = \delta^*_{det, A}(s, vw)$$
+    und damit $uw \sim_A vw$.\hspace*{\fill}$\square$\\
+    
+    Zu jedem DEA $A$ gibt es eine zugehörige Rechtskongruenz $\sim_A$ mit endlichem Index, sodass $L(A)$ die Vereinigung von Äquivalenzklassen von $\sim_A$ ist. Tatsächlich gilt auch die Umkehrung!
+\end{prop}
+
+\begin{defn}{}
+    Sei $\Sigma$ ein Alphabet und $L$ die Vereinigung von Äquivalenzklassen einer Rechtskongruenz $\sim$ über $\Sigma^*$ mit endlichem Index. Es bezeichne $A_{\sim, L} = (\nicefrac{\Sigma^*}{\sim}, \Sigma, \Delta, [\lambda]_\sim, \{[w]_\sim :  w \in L\})$\\ den DEA mit $\delta_{det, A_\sim, L}([w]_\sim, a) = [wa]_sim \quad \forall w \in \Sigma^*$ und $a \in \Sigma$\\
+    (Dies ist wohldefiniert, da $\sim$ eine Rechtskongruenz ist.)
+\end{defn}
+
+\begin{lemma}{}
+    Sei $\Sigma$ ein Alphabet und $L$ die Vereinigung von Äquivalenzklasssen einer Rechtskongruenz $\sim$ über $\Sigma^*$ mit endlichem Index uns sei $\delta^* : \nicefrac{\Sigma^*}{\sim} \times \Sigma^* \to \nicefrac{\Sigma^*}{\sim}$ die erweiterte Übergangsfunktion von $A_{\sim, L}$. Dann gilt $\delta^*([\lambda]_\sim, w) = [w]_\sim \quad \forall w \in \Sigma^*$\\
+    
+    \textbf{Beweis:} Wir gehen vor wie in Beweis von Satz 5.11 (vollst. Induktion über $|w|$).\\
+    Es gil $\delta^*([\lambda]_\sim, \lambda) = [\lambda]_\sim$. Sei $w \in \Sigma^*$ mit $\delta([w]_\sim, v) = [v]_\sim \quad \forall v \in \Sigma^{\geq |w|-1}$. Es genügt zu zeigen, dass $\delta^*([\lambda], w) = [w]_\sim$.\\
+    Sei $v := w(1) ... w(|w|-1)$ und $a := w(|w|)$.
+    Dann gilt
+    $$\delta^*([\lambda]_\sim, w) = \delta^*(\delta^*([lambda], v), a) = \delta^*([v]_\sim, a) = [va]_\sim = [w]_\sim$$
+    \rightline{$\square$}
+\end{lemma}
+
+\begin{satz}{}
+    Sei $L$ die Vereinigung von Äquivalentklassen einer Rechtskongruenz $\sim$ mit endlichem Index. Dann gilt $L(A_{\sim, L} = L$.\\
+    
+    \textbf{Beweis:} Sei $\Sigma$ das Alphabet, sodass $\sim$ eine Rechtskongruenz über $\Sigma^*$ ist. Sei $\delta^* : \nicefrac{\Sigma^*}{\sim} \times \Sigma^* \to \nicefrac{\Sigma^*}{\sim}$ die erw. Übergangsfunktion von $A_{\sim, L}$ und sei $w \in \Sigma^*$.\\
+    Dann gilt
+    \begin{flalign*}
+            w \in L(A_{\sim, L}) \iff & \delta^*([\lambda]_\sim, w) \in \{[v]_\sim : v \in L\}\\
+            \iff & [w]_\sim \in \{[v]_\sim : v \in L\}\\
+            \iff & \exists u \in L : u \sim w\\
+            \iff & w \in L
+    \end{flalign*}
+    \hspace*{\fill}$\square$
+\end{satz}
+
+\begin{kollar}{}
+    Eine Sprache $L$ ist genau dann regulär, wenn sei die Vereinigung von Äquivalenzklassen einer Rechtskongruenz mit endlichem Index ist.\\
+    
+    \textbf{Beweis:} Folgt aus Bemerkung 6.3, Propopsition 6.5 und Satz 6.8
+\end{kollar}
+
+\begin{defn}{erreichbar}
+    Sei $\Sigma$ ein Alphabet und $A = (Q, \Sigma, \Delta, s, F)$ ein EA mit erw. Übergangsfunktion $\delta^*$. Ein Zustand $q \in Q$ heißt \textbf{erreichbar} in $A$, wenn es ein Wort $w \in \Sigma^*$ mit $q \in \delta^*(s, w)$ gibt.
+\end{defn}
+
+\begin{defn}{isomorph}
+    Sei $A_i = (Q_i, \Sigma, \Delta_i, s_i, F_i)$ für $i \in \{1, 2\}$ ein EA mit Übergangsfunktion $\delta_i$. Die endlichen Automaten $A_1$ und $A_2$ heißen \textbf{isomorph}, kurz $A_1 \cong A_2$, wenn es eine Bijektion $f : Q_1 \to Q_2$ gibt, sodass folgendes gilt:
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item $\delta_2(f(q_1), a) = f(\delta_1(q_1, a)) \quad \forall a \in \Sigma, q \in Q$
+        \item $f(F_1) = F_2$
+        \item $f(s_1) = s_2$
+    \end{enumerate}
+\end{defn}
+
+\begin{satz}{}
+    \begin{enumerate}[label=(\roman*)]
+        \item Ist $A$ ein DEA ohne unerreichbare Zustände, so gilt $A \cong A_{\sim_A, L(A)}$.
+        \item Ist $L$ die Vereinigung von Äquivalenzklassen einer Rechtskongruenz $\sim$ mit endlichem Index, so gilt $\sim = \sim_{A_\sim, L}$ und $L = L(A_{\sim, L})$.
+    \end{enumerate}
+    
+    \textbf{Beweis:}\\
+    (i) Sei $A = (Q, \Sigma, \Delta, s, F)$ ein DEA mit erw. Übergangsfunktion $\delta^* : Q \times \Sigma^* \to Q$ ohne unerreichbare Zustände, $\sim := \sim_A$, $A' := A_{\sim, L(A)}$ und sei $\delta' : \nicefrac{\Sigma^*}{\sim} \times \Sigma^* \to \nicefrac{\Sigma^*}{\sim}$ die erw. Übergangsfunktion von $A'$.\\
+    Sei $f : Q \to \nicefrac{\Sigma^*}{\sim}$ die Bijektion mit $f(q) = \{w \in \Sigma^* : \delta^*(s,w) = q\}$.\\
+    Es gelten $f(s) = [\lambda]_\sim$ und $f(F) = \{[w]_\sim : w \in L(A)\}$.\\
+    Es genügt zu zeigen, dass $\delta'(f(q), a) = f(\delta^*(q, a)) \quad \forall q \in Q, a \in \Sigma$.\\
+    Sei $q \in Q, a \in \Sigma$ und $w \in \Sigma^*$.\\
+    Es genügt zu zeigen, dass $w \in \delta'(f(q), a) \iff \delta^*(s, w) = \delta^*(q, a)$.\\
+    Sei $v \in \Sigma^*$ mit $\delta^*(s, v) = q$.\\
+    \begin{flalign*}
+        w \in \delta'(f(q), a) \iff & w \in \delta'([v]_\sim, a) \\
+        \iff & w \sim va\\
+        \iff & \delta^*(s, w) = \delta^*(s, va)\\
+        \iff & \delta^*(s, w) = \delta^*(q, a)
+    \end{flalign*}
+    
+    (ii) Sei $\Sigma$ ein Alphabet, $\sim$ eine Rechtskongruenz auf $\Sigma^*$, $L$ eine Vereinigung von Äquivalenzklassen von $\sim$, $A := A_{\sim, L} = (\nicefrac{\Sigma^*}{\sim}, \Sigma, \Delta', [\lambda]_\sim, \{[w]_\sim :  w \in L\})$,\\
+    ${\delta'}^* : \nicefrac{\Sigma^*}{\sim} \times \Sigma^* \to \nicefrac{\Sigma^*}{\sim}$ die erweiterte Übergangsfunktion von $A'$ und $\sim' = \sim_{A'}$.\\
+    Nach Satz 6.8 gilt $L = L(A')$. Es genügt $\sim = \sim'$ zu zeigen.\\
+    Seien $u, v \in \Sigma^*$. Dann gilt
+    
+    \begin{flalign*}
+        u \sim v \iff & [u]_\sim = [v]_\sim \iff {\delta'}^*([\lambda]_\sim, u) = {\delta'}^*([\lambda]_\sim, v)\\
+        \iff & u \sim' v
+    \end{flalign*}
+    \hspace*{\fill}$\square$
+\end{satz}
