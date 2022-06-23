@@ -1,0 +1,100 @@
+\vorlesung{12}{Reguläre Sprachen}{31.05.2022}
+
+Satz 6.12 bedeutet insbesondere folgendes:\\
+Ist $A_i$ für $i \in \{1, 2\}$ ein DEA ohne unerreichbare Zustände, so gilt $A_1 \cong A_2 \iff (\sim_{A_1}, L(A_1)) = (\sim_{A_2}, L(A_2))$\\
+Zudem ist $L_i$ für $i \in \{1, 2\}$ die Vereinigung von Äquivalenzklassen einer Rechtskongruenz $\sim_i$ mit endlichem Index, so gilt $(\sim_1, L_1) = (\sim_2, L_2) \iff A_{\sim_1, L_1} \cong A_{\sim_2, L_2}$\\
+
+\textbf{Nächstes Ziel:} Gibt es einen \textit{kanonischen} Automaten für jede Sprache $L$\\
+
+\textbf{Beob.:} Für jede reguläre Sprache gibt es beliebig viele endliche Automaten, die $L$ erkennen. Äquivalent gilt: $L$ ist die Vereinigung von Äquivalenzklassen verschiedener Rechtskongruenzen $\sim$ mit endlichem Index.\\
+Für alle solche $\sim$ und alle Wörter $u, v, w$ mit $u \sim v$ gilt:
+$$uw \in L \iff \delta^*_{det, A}(s, uw) \in F \iff \delta^*_{det, A}(s, vw) \in F \iff vw \in L$$
+
+\begin{defn}{L-Äquivalenz}
+    Sei $L$ eine Sprache über einem Alphabet $\Sigma$. Die \textbf{L-Äquivalenz} von $L$ als Sprache über $\Sigma$ ist die Relation $\sim_L$ auf $\Sigma^*$ mit
+    $$u \sim_L v \iff (uw \in L \iff vw \in L \quad \forall w \in \Sigma^*)$$
+\end{defn}
+
+\begin{defn}{Partition}
+    Sei $A$ eine Menge. Eine \textbf{Partition} von $A$ ist eine Menge $\mathcal{A} = \{A_1, .., A_n\}$ paarweise disjunkter Teilmengen von $A$ mit $\underset{i \in [n]}{\cup} A_i = A$.
+\end{defn}
+
+\begin{defn}{Verfeinerung}
+    Seien $\mathcal{A}_1$ und $\mathcal{A}_2$ Partitionen einer Menge $A$. Die Partition $\mathcal{A}_2$ ist eine \textbf{Verfeinerung} von $\mathcal{A}_1$, wenn $\forall A_2 \in \mathcal{A}$ es ein $A_1 \in \mathcal{A}$ gibt mit $A_2 \subseteq A_1$.
+\end{defn}
+
+\begin{bem}
+    Seien $\mathcal{A}_1$ und $\mathcal{A}_2$ Partitionen einer Menge $A$, sodass $\mathcal{A}_2$ einer Verfeinerung von $\mathcal{A}_1$ ist.
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item $\forall A_1 \in \mathcal{A}$ gibt es $\mathcal{A}_2 \subseteq \mathcal{A}_2$ sodass ${\mathcal{A}'}_2$ eine Partition von $A_1$ ist.
+        \item $|\mathcal{A}_1| \leq |\mathcal{A}_2|$
+        \item $| \mathcal{A}_1 | = |\mathcal{A}_2| \implies \mathcal{A}_1 = \mathcal{A}_2$
+    \end{enumerate}
+\end{bem}
+
+\begin{bem}
+    Sei $L$ eine Sprache über $\Sigma$.
+    \begin{enumerate}[label=(\roman*)]
+        \item Die L-Äquivalenz ist eine Rechtskongruenz
+        \item Es gilt $L = \underset{w \in L}{\cup}[w]_{\sim_L}$
+    \end{enumerate}
+\end{bem}
+
+\begin{prop}
+    Sei $\Sigma$ ein Alphabet, $L$ eine Sprache über $\Sigma$ und $\sim$ eine Rechtskongruenz auf $\Sigma^*$ mit $L = \underset{w \in L}{\cup}[w]_\sim$. Die Partition $\nicefrac{\Sigma^*}{\sim}$ ist eine Verfeinerung von $\nicefrac{\Sigma^*}{\sim_L}$
+    
+    \textbf{Beweis:} Seien $u, v \in \Sigma^*$ mit $u \sim v $. Es genügt $u \sim_L v$ zu zeigen. Sei $w \in \Sigma^*$. Dann genügt es zu zeigen, dass $uw \in L \iff vw \in L$. Da $\sim$ eine Rechtskongruenz ist, folgt $uw \sim vw$. Ist $uw \in L$, so folgt aus $L = \underset{w \in L}{\cup}[w]_\sim$, dass auch $vw \in L$ gilt. Analog gilt $vw \in L \implies uw \in L \implies (uw \in L \iff vw \in L)$ \hspace*{\fill}$\square$
+\end{prop}
+
+\begin{defn}{Minimalautomat}
+	Sei $L$ eine reguläre Sprache über $\Sigma$. Der \textbf{Minitmalautomat} vo L als Sprache über $\Sigma$ ist der DEA $A_{\sim_L, L}$.	
+\end{defn}
+
+\begin{satz}{}
+	Sei $L$ eine Sprache über $\Sigma$ und $M = (Q, \Sigma, \Delta, s, F)$ der Minimalautomat von $L$. Dann gilt folgendes:
+	\begin{enumerate}[label=(\roman*)]
+		\item $L(M) = L$
+		\item Ist $A$ ein DEA mit Zustandsmenge $Q_A$ und $L(A)=L$, so gilt $|Q_A| \geq |Q|$
+		\item Ist $A$ ein DEA mit $|Q|$ Zuständen und $L(A)=L$, so gilt $A \cong M$.
+	\end{enumerate}	 
+	
+	\textbf{Beweis:}
+	\begin{enumerate}[label=(\roman*)]
+		\item Folgt direkt aus Satz 6.8
+		\item Aus Bemerkung 6.3 (ii) folgt $|Q_A| \geq |\nicefrac{\Sigma^*}{\sim_A}|$. Aus Proposition 6.18 ist $\nicefrac{\Sigma^*}{\sim_A}$ eine Verfeinerung von $\nicefrac{\Sigma^*}{\sim_L}$ und somit $|\nicefrac{\Sigma^*}{\sim_A}| \geq |\nicefrac{\Sigma^*}{\sim_L}|$. Wegen $|Q| = |\nicefrac{\Sigma^*}{\sim_L}|$ folgt $|Q_A| \geq |\nicefrac{\Sigma^*}{\sim_A}| \geq |\nicefrac{\Sigma^*}{\sim_L}| = |Q|$.
+		\item Sei $A$ ein DEA mit $|Q|$ Zuständen und $L(A) = L$. Besitzt $A$ unerreichbare Zustände, so gilt $|\nicefrac{\Sigma^*}{\sim_A}| < |Q| = |\nicefrac{\Sigma^*}{\sim_L}|$ im Widerspruch zu Prop 6.18. Nach Satz 6.12 genügt es $\sim_A = \sim_M$ zu zeigen. Die Relation $\sim_A$ und $\sim_M$ sind Rechtskongruenzen mit endlichem Index (Bem 6.3 und Prop 6.5) und $L$ ist die Vereinigung von Äquivalenzklassen dieser Relation.\\
+		Prop 6.18 $\implies$ $\nicefrac{\Sigma^*}{\sim_A}$ und $\nicefrac{\Sigma^*}{\sim_M}$ sind Verfeinerungen von $\nicefrac{\Sigma^*}{\sim_L}$. Die Indices von $\sim_A$ und $\sim_M$ sind mindestens so groß, wie der Index von $\sim_L$. Die Indices sind aber auch höchstens so groß wie $|Q| = |\nicefrac{\Sigma^*}{\sim_L}|$. $\implies$ Indices von $\sim_A, \sim_M$ und $\sim_L$ sind gleich. Da $\sim_A$ und $\sim_M$ die Relation $\sim_L$ verfeinern, gilt $\sim_A = \sim_M = \sim_L$.\hspace*{\fill}$\square$
+	\end{enumerate}	 
+\end{satz}
+
+
+\begin{satz}{Satz von Myhill und Nerode}
+	Für eine Sprache $L$ über einem Alphabet $\Sigma$ sind die folgenden Aussagen äquivalent:
+	\begin{enumerate}[label=(\roman*)]
+		\item $L$ ist regulär
+		\item Der Index von $\sim_L$ ist endlich
+		\item $L$ ist die Vereinigung von Äquivalenzklassen einer Rechtskongruenz mit endlichem Index
+	\end{enumerate}
+	
+	\textbf{Beweis:} (i) $\iff$ (iii) ist Korollar 6.9\\
+	Die Relation $\sim_L$ ist nach Bem 6.17 eine Rechtskongruenz und $L = \underset{w \in L}{\cup}[w]_{\sim_L}$. Somit folgt aus (ii) Aussage (iii). Die Implikation (iii) $\iff$ (ii) folgt aus Bem 6.16 (ii) und Prop. 6.18 \hspace*{\fill}$\square$
+\end{satz}
+
+\begin{satz}{Pumping-Lemma}
+	Sei $\Sigma$ ein Alphabet. Für jede reguläre Sprache $L \subseteq \Sigma^*$ gibt es eine Konstante $k \in \N$, so dass folgendes gilt: Ist $z \in L$ mit $|z| \geq k$, so gibt es Wörter $u, v \in \Sigma^*$ mit $z = uvw$ sodass gilt:
+	\begin{enumerate}
+		\item $v \neq \lambda$
+		\item $|uv| \leq k$
+		\item $u v^i w \in L \quad \forall i \in \N_0$
+	\end{enumerate}
+	
+	\textbf{Beweis:} Wähle $k := $ Anzahl Zustände des Minimalautomaten von $L$. Gebe $z \in \Sigma^*$ mit $|z| \geq k$. Dann kommt bis inklusive Einlesen von $z(k)$ ein Zustand doppelt vor $\to$ Automat lief eine Schleife $(=v)$ Schleife kann beliebig oft wiederholt werden und da $z \in L$ gilt auch, dass das Wort mit Schleifenwiederholungen in $L$ ist.\hspace*{\fill}$\square$
+\end{satz}
+
+\begin{exam}
+	Die Sprache $L := \{0^n 1^n : n \in \N_0\}$ ist nicht regulär. Dies lässt sich mit dem Pumping-Lemma wie folgt zeigen.\\
+	
+	\textbf{Beweis:} Angenommen $L$ wäre regulär. Dann gäbe es eine Konstant $k \in \N_0$ wie im Pumping-Lemma. Sei $z := 0^k 1^k$. Dann seien $u, v, w \in \{0, 1\}^*$, sodass (i) - (iii) aus dem Pumping-Lemma gilt. $\implies v = 0^l$ für ein $l > 0$. Damit ist auch $0^{k-l} 1^k \in L$ \lightning \hspace*{\fill}$\square$
+\end{exam}
+

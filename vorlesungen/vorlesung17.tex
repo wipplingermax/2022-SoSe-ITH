@@ -1,0 +1,63 @@
+\vorlesung{17}{Zeitkonstruierbar, Zeithierarchie}{23.06.2022}
+
+\begin{satz}{}
+    Ist für alle Turingmaschinen der Form $M = (\{0, ..., n\}, \{0, 1\}, \{0, 1, \square\}, \Delta, 0, \{0\})$ und alle Wörter $w \in \{0, 1\}^*$ das Wort $code(M, w)$ ein geeigneter Code für $(M, w)$, so gibt es eine 2-Band TM $U$, sodass folgendes gilt:
+    \begin{enumerate}[label=(\roman*)]
+        \item $\forall$ TM $M$ wie oben und alle Wörter $w \in \{0, 1\}^*$ akzeptiert $U$ den Code $code(M, w)$ genau dann, wenn $M$ das Binärwort $w$ akzeptiert.
+        \item $\forall$ Zeitschranken $t$, $\forall$ t-zeitbeschränkten TM $M$ wie oben $\exists n_0 \in \N$, $\forall w \in \{0, 1\}^{\geq n_0} \exists c \in \N_0 :$ jede Rechnung von $U$ zur Eingabe $code(M, w)$ höchstens Länge $ct(|w|)$ hat.
+    \end{enumerate}
+    
+    \textbf{Beweis:} Die Idee ist die Bänder der TM $M$ nacheinander zu simulieren. Genauer verfährt $U$ wie folgt:
+    \begin{itemize}
+        \item Zu Beginn werden einige Initialschritte durchgeführt, die es dann erlauben, die k-Bänder von $M$ nacheinander auf dem ersten Band von $U$ zu simulieren, wobei auf dem zweiten Band eine Repräsentation von $M$ erzeugt wird. Es wird dabei aber sichergestellt, beispielsweise mittels mehrerer Spuren auf dem zweiten Band, dass das zweite Band von $U$ noch verwendet werden kann um dort einige Bandsymbole speichern zu können.
+        \item Die k-TM $M$ wird mit $w$ als Eingabe simuliert, indem nacheinander für jedes Band $i \in [k]$ alle Kopfbewegungen auf Band $i$ bis zum Rechnungsende simuliert werden. Es werden also zunächst alle Kopfbewegungen auf dem ersten, dann auf dem zweiten Band usw. simuliert.
+        \begin{itemize}
+            \item Dies erfordert im Sinne der Arbeitsweise von M die Kenntnis der in jedem Schritt gelesenen Bandsymbole auf allen anderen Bändern, weshalb diese zu Beginn der Simulation des ersten Bandes für die noch nicht simulierten Bänder nichtdet. geraten werden.
+            \item Bei der Simulation der weiteren Bänder wird dann geprüft, ob die tatsächlichen dort auftretenden Bandsymbole zu den geraden passen. Ist die nicht der Fall, so terminiert die Simulation und die Eingabe wird nicht akzeptiert. Andernfalls war die Simulation erfolgreich und die Eingabe wird genau dann akzeptiert, wenn die Simulation die simulierte Eingabe akzeptiert. \hspace*{\fill}$\square$
+        \end{itemize}
+    \end{itemize}
+\end{satz}
+
+\begin{defn}{}
+    Für eine Menge an Funktionen von $\N_0 \to \mathbb{R}_{\geq 0}$ definieren wir
+    \begin{align*}
+        DTIME(T) := \{ & L(M) \subseteq \{0, 1\}^* : \text{ für alle Funktionen } \\ &  t \in T \text{ ist } M \text{ eine t-zeitbeschränkte DTM}\}\\
+        FTIME(T) := \{ & \delta_M : \N_0 \to \N_0 :  \text{ für eine Funktion } \\ &  t \in T \text{ ist } M \text{ eine t-zeitbeschränkte DTM}\}\\
+        NTIME(T) := \{ & L(M) \subseteq \{0, 1\}^* : \text{ für eine Funktion } \\ &  t \in T \text{ ist } m \text{ eine t-zeitbeschränkte TM}\}
+    \end{align*}
+    
+    Für eine Funktion $t : \N_0 \to R_{\geq 0}$ definieren wir $DTIME(t) = DTIME(\{t\})$ und analog für $FTIME, NTIME$.\\
+    Wie bisher schrieben wir auch $DTIME(n^2)$ wenn wir $DTIME(t)$ für $t : \N_0 \to \mathbb{R}_{\geq 0}, n \mapsto n^2$.\\
+    Bestimmte Zeitschranken verhalten sich besser als andere.
+\end{defn}
+
+\begin{defn}{zeitkonstruierbar}
+    Eine Zeitschranke $t$ ist genau dann \textbf{zeitkonsturierbar}, wenn es eine DTM $M$ mit Eingabealphabet $\{1\}$ gibt, sodass $time_M(1^n) = t(n)$ gilt.
+\end{defn}
+
+\begin{bem}
+    \begin{enumerate}
+        \item Ist $p$ ein Polynom in einer Varianten über $\mathbb{Z}$ mit $p(n) \geq n+1 \forall n$, so ist $t : \N_0 \to N_0, n \mapsto p(n)$ zeitkonstruierbar
+        \item Ist $t$ zeitkonstruierbar, so ist auch $T : \N_0 \to \N_0, a \mapsto 2^{t(n)}$ zeitkonstruierbar
+    \end{enumerate}
+\end{bem}
+
+\begin{satz}{Zeithierarchiesatz für DTM}
+    Sei $t$ eine Zeitschranke und $T$ eine zeitkonstruierbare Zeitschranke, mit $t(n) \log t(n) = o(T(n))$. Dann gilt $DTIME(t(n)) \subsetneq DTIME(T(n))$.\\
+    
+    \textbf{Beweisidee: } Diagonalisierungsargument und Satz 8.1\\
+    \textbf{Beweis:} Sei $M_0, M_1, ...$ eine geeignete effektive Aufzählung alle DTM der Form $M = (\{, ..., m\}, \{0, 1\}, \{0, 1, \square\}, \Delta, 0, \{0\})$.\\
+    Nach Satzt 8.11 gibt es eine DTM $U$, die bei hinreichend langer Eingabe $1^e$ in höchstens $T(e)$ Schritten mind. $t(e)$ Schritte von $M_e$ bei Eingabe $1^e$ simuliert und danach genau dann akzeptiert, wenn die Simulation terminiert aber nicht akzeptiert.\\0
+    Da $T$ zeitkonstruierbar ist, ist es möglich $U$ so zu modifizieren, dass $U$ die Simulation immer nach $T(e)$ Schritten von $U$ abbricht, wobei $U$dann bei abgebrochener Simulation nie akzeptiert. Dann ist $U$ offenbar t-zeitbeschränkt, es gilt $L(U) \in DTIME(T)$.\\
+    Nach Satz 8.4 folgt, dass es nun genügt zu  zeigen, dass kein $e \in \N_0$ mit $L(M_e) = L(U)$ existiert, sodass $M_e$ z-zeitbeschränkt ist. Ist $M$ eine t-zeitbeschränkte DTM und $e$ hinreichend groß mit $M_e = M$, so bricht $U$ die Simulation bei Eingabe $1^e$ nicht ab, es gilt also $L(M) \neq L(U)$. \hspace*{\fill}$\square$
+\end{satz}
+
+\begin{prop}{}
+    Für alle $t : \N_0 \to \mathbb{R}_{\geq 0}$ gilt $NTIME(t(n)) \subseteq DTIME(2^{O(t(n))})$ wobei $2^{O(t(n))} := \{2^{ct(n) +c} : c \in \N_0\}$\\
+    
+    \textbf{Beweis:} $\forall$ t-zeitbeschränkte TM $M$ exisiteirt eine Konstante $c$, sodass es zur Eingabe $w$ höchstens $c^{t(|w|)}$ Rechnungen von $M$ gibt. Ein geeignetes Umsetzen einer sequentiellen Analyse aller dieser Rechnungen auf einer DTM $M'$ mit $L(M') = L(M)$ zeigt $L(M) \in DTIME(2^{O(t(n))})$. \hspace*{\fill}$\square$ 
+\end{prop}
+
+\begin{satz}{Zeithierarchiesatz für nichtdet. TM}
+    Sei $t$ eine Zeitschranke und $T$ eine zeitkonstrierbare Zeitschranke mit $t(n+1) = o(T(n))$. Dann gilt $NTIME(t(n)) \subsetneq NTIME(T(n))$.
+\end{satz}

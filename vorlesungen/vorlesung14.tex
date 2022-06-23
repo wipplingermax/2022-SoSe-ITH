@@ -1,0 +1,82 @@
+\vorlesung{14}{Formale Grammatiken}{14.06.2022}
+
+\begin{defn}{kontextsensitiv}
+    Eine Grammatik $G=(N, T, P, S)$ ist \textbf{kontextsensitiv}, wenn alle Regeln von $G$ von der Form
+    $$uXv \to uwv$$
+    mit $X \in N$, $u, v \in (N \cup T)^*$ und $w \in (N \cup T)^+$ sind. Eine Sprache $L$ heißt \textit{kontextsensitiv}, wenn $L \setminus \{\lambda\}$ von einer kontextsensitiven Grammatik erzeugt wird. Die Menge aller kontextsensitiven Sprachen bezeichnen wir mit $CS$.
+\end{defn}
+
+\begin{defn}{nichverkürzend}
+    Eine Grammatik $G = (N, T, P, S)$ ist nichtverkürzend, wenn alle Regeln von der Form
+    $$u \to v$$
+    mit $u, v \in (N \cup T)^*$ mit $|u| \leq |v|$.
+\end{defn}
+
+\begin{satz}{}
+    Eine Sprache ist genau dann kontextsensitiv, wenn sie von einer nichtverkürzenden Grammatik erzeugt wird.\\
+
+    \textbf{Beweisidee:} "kontextsensitiv" $\implies$ "nichtkürzend" ist offensichtlich\\
+    Nehmen wir an, $L$ sei eine Sprache erzeugt von einer nichtverkürzenden Grammatik $G = (N, T, P, S)$.\\
+    Man kann sich überlegen, dass es eine Grammatik $G_S = (N, T, P_S, S)$ mit $L(G_S)=L(G)$ gibt,  bei der alle Regeln von der Form
+    $$X_1, .., X_m \to Y_1, ..., Y_n \text{  oder  } X \to a$$
+    mit $m \leq n, X_1, ..., X_m, Y_1, ..., Y_n \in N$ und $a \in T$.\\
+    Eine solche nichtverkürzende Grammatik heißt \textit{separiert} und solch eine Grammatik kann wie folgt in eine kontextsensitive Grammatik umgewandelt werden.\\
+    Für jede Regel $P = X_1, ..., X_m \to Y_1, ..., Y_n$ mit $X_1, ..., X_m, Y_1, ..., Y_n \in N$ fügen wir die folgenden Regeln ein:
+    \begin{flalign*}
+        X_1 \to & Z_1^P\\
+        Z_i^P X_{i+1} \to & Z_i^P Z_{i+1}^P \text{ mit } i \in [m-2]\\
+        Z_{m-1}^P X_m \to & Z_{m-1}^P \Tilde{Z}_m^P Y_{m+1} ... Y_n\\
+        Z_i^P \Tilde{Z}_{i+1}^P \to & \Tilde{Z}_i^P \Tilde{Z}_{i+1}^P \text{ mit } i \in [m-1]\\
+        \Tilde{Z_i^P} \Tilde{Z}_{i+1}^P \to & \Tilde{Z}_i^P Y_{i+1} \text{ mit } i \in [m-1]\\
+        \Tilde{Z_1^P} \to & Y_1\\
+    \end{flalign*}
+    wobei $Z_1^P, ..., Z_{m-1}^P, \Tilde{Z}_1^P, ..., \Tilde{Z}_m^P$ alle Nichtterminalsymbole sind (alle verschiedene). Dies ist offensichtlich eine kontextsensitive Grammatik.
+\end{satz}
+
+\begin{besch}
+    Ein \textbf{linear beschränkter Automat}, kurz LBA, ist eine 1-TM $M$, die für alle Wörter $w$ über dem Eingabealphabet in allen Rechnungen von $M$ zur Eingabe $w$ nur die durch den Eingabemechanismus mit den Symbolen von $w$ beschrifteten Feldern und die an diese angrenzenden Felder besucht.
+\end{besch}
+
+\begin{satz}{}
+    Eine Sprache ist genau dann kontextsensitiv, wenn sie von einem linear beschränkten Automaten erkannt wird.\\
+    
+    \textbf{Beweisidee:} Ist die Sprache $L$ kontextsensitiv, so wird sie von dem linear beschränkten Automaten erkannt, der bei Eingabe $w$ nicht det. eine Ableitung in einer $L$ erkennenden, nichtverkürzenden Grammatik rät bis die abgeleitete Satzform die Länge von $w$ hat und dann akzeptiert, wenn die abgeleitete Satzfor $w$ ist. Von LBA zu kontextsensitiv werden wieder Ideen ähnlich zum Postschen Korrespondenzproblem benutzt.
+\end{satz}
+
+\begin{exam}
+    Die Sprache $\{0^n 1^n 0^n : n \in \N\}$ wird von der nichtverkürzenden Grammatik $G = (N, \{0, 1\}, P, S)$ erzeugt, wobei $N = \{S, A, B, C, \Tilde{A}, \Tilde{B}, \Tilde{C}\}$ und
+    \begin{flalign*}
+        P = &\{S \to 010, S \to \Tilde{A} B \Tilde{C}, \Tilde{C} \to C A B \Tilde{C}\\
+        & BA \to AB, CA \to AC, CB \to BC,\\
+        & \Tilde{A}A \to 0 \Tilde{A}, \Tilde{A} B \to 0 \Tilde{B},\\
+        & \Tilde{B} B \to 1 \Tilde{B}, \Tilde{B} C \to 1 \Tilde{C},\\
+        & \Tilde{C} C \to 0 \Tilde{C}, \Tilde{C} \Tilde{C} \to 00 \} \notag
+    \end{flalign*}
+\end{exam}
+
+Die folgenden Sprachen bilden die sogenannte Chomsky-Hierarchie:
+
+\begin{defn}{Chomsky-Hierarchie}
+    Die Klassen der Chomsky-Hierarchie sind
+    $$CH(0) := RE, CH(1) := CS, CH(2) := CF, CH(3) := REG$$
+\end{defn}
+
+\begin{satz}{}
+    Es gilt $REG \subsetneq CF \subsetneq CS \subsetneq REC \subsetneq RE$\\
+    
+    \textbf{Beweis:} Für die Echtheit der Inklusion siehe Beispiel 7.20. Es bleibt zu zeigen, dass $CF \subseteq CS$ und $CS \subseteq REC$. Ist $G = (N, T; P, S)$ eine kontextfreie Grammatik, so erhält man die Menge $P'$ an Regeln einer kontextsensitiven Grammatik $G(N, T, P', S)$ mit $L(G') = L(G) \setminus \{\lambda\}$ wenn ausgehend von $P$ in zwei Schritten.\\
+    Zunächst werden für alle Regeln $X \to n \in P$ die Regeln $X \to u'$ hinzugefügt, bei denen $u'$ au $u$ entsteht, indem man mindestens ein Symbol aus $X$ entfernt, welches man nach $\lambda$ ableiten kann. Dann entfernen wir alle Regeln der Form $X \to \lambda$.\\
+    $\implies CF \subseteq CS$.\\
+    Jede kontextsensitive Sprache ist entscheidbar, denn zu einem geeigneten gegebenen linear beschränkten Automaten $M$ kann wegen der endlichen Anzahl von Konfigurationen von $M$ effektiv von einer TM erkannt werden, ob diese eine gegebene Eingabe akzeptiert oder nicht. \hspace*{\fill}$\square$
+\end{satz}
+
+\begin{exam}
+    \begin{enumerate}[label=(\roman*)]
+        \item $L_1 = \{1^n : n \in \N\}$ ist regulär
+        \item $L_2 = \{0^n 1^n : n \in \N\}$ ist nicht regulär, aber kontextfrei
+        \item $L_3 = \{0^n 1^n 0^n : n \in \N$ ist nicht kontextfrei, aber kontextsensitiv
+        \item Sei $M_0, M_1, ...$ eine geeignete effektive Def. aller linear beschränkten Automaten mit Zustandsmenge $\{0, ..., n\}$. Eingabealphabet $\{1\}^*$ und Bandalphabet $\{\square, 0, 1, ..., m\}$. Die Sprache $L_4 = \{1^e : 1^e \in L(M_e)\}$ ist entscheidbar, aber nicht kontextsensitiv.
+        \item Die Sprache $L_5 = \{1^e : e \in H_{diag}\}$ ist rekursiv aufzählbar aber nicht entscheidbar.
+        \item Die Sprache $L_6 = \{1^e : e \not\in H_{diag}\}$ ist nicht rekursiv aufzählbar
+    \end{enumerate}
+\end{exam}

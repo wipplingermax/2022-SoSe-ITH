@@ -1,0 +1,60 @@
+\vorlesung{16}{Zeitkomplexität}{21.06.2022}
+
+\textbf{Letzte Vorlesung:} Ein oder zwei Bänder machen bei TM einen Unterschied, allerdings nicht so viel.
+
+\begin{satz}{}
+    Ist $M$ eine $t(n)$-zeitbeschränkte TM, so gibt es eine $t'(n)$-zeitbeschränkte TM mit $t'(n) = O((t(n)^2)$, die die selbe Sprache wie $M$ erkennt.\\
+    
+    \textbf{Beiweisskizze:} Simulieren eine k-Band TM auf einem Band mit Tupel als Bandalphabet und Markierungen für die Kopfposition. Pro Schritt, der simuliert werden soll $O(t(n))$ Schritte höchstens $t(n)$ zu simulieren $\implies O((t(n)')$ Schritte insgesamt. \hspace*{\fill}$\square$
+\end{satz}
+
+\begin{satz}{}
+    Ist für alle det. TM $M = (\{0, ..., n\}, \{0, 1\}, \{0, 1, \square\}, \Delta, 0, \{0\})$ und alle Wörter $w \in \{0, 1\}^*$ das Wort $code(Mw)$ ein geeigneter Code für $(M, n)$, so gibt es eine det. 2-Band TM $U$, sodass folgendes gilt:
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item Für alle det. TM $M$ wie oben und alle $w \in\{0, 1\}$ akzeptiert $U$ den Code $code(M, w)$ genau dann, wenn $M$ das Binärwort $w$ akzeptiert.
+        \item Für alle Zeitschranken $t$, alle $t$-zeitbeschränkte DTM $M$ wie oben, gibt es ein $n_0 \in \N$, sodass $\forall w \in \{0, 1,\}^{\geq n_0}$, es eine konstante $c \in \N_0$ gibt, sodass die Rechnung von $U$ zur Eingabe $code(M, w)$ Länge höchstens $ct(|w|) \log (t|w|)$ hat.
+    \end{enumerate}
+    
+    \textbf{Beweisidee:}
+    \begin{itemize}[noitemsep]
+        \item Verwendung von Spurentechnik (z.B. Benutzung von Tupeln)
+        \item 1. Band simuliert alle Bänder und 2. Band Hilfsband
+        \item Anstatt Köpfe zu bewegen, bewegen wir die Bänder
+        \item Auf geschickte Weise Lücken lassen
+    \end{itemize}
+    \textbf{Beweis:} Genauer verfährt $U$ bein Eingabe $code(M, w)$ wie folgt.
+    \begin{itemize}
+        \item Initialsierungsschritte: zu Beginn werden einige Initialisierungsschritte durchgeführt, die es erlauben, die k-Bänder von $M$ in jeweils eine Spur auf dem ersten Band von $U$ geeignet zu simulieren, wobei auf dem zweiten Band eine Repräsentation von $M$ erzeugt wird. Es wird dabei aber sichergestellt, beispielsweise mittels mehrerer Spuren auf dem zweiten Band, dass das zweite Band noch verwendet werden kann um mit der Arbeitslänge linearen Zeitaufwand Abschnitte auf dem ersten Band verschieben zu können.
+        \item Während der Simulation von $M$ wird jede Spur auf dem ersten Band von $U$ in Abschnitte zerteilt.
+        \begin{itemize}
+            \item die Felder auf dem ersten Band von $U$, auf dem der Kopf zu Beginn steht, bildet für alle Spuren $i \in [h]$ den aus einem Feld bestehenden Abschnitt $H^{(i)}$. Die Simulation von $M$ wird mittel Spurentechnik so durchgeführt, dass die simulierte Kopfposition auf jeder Spur das Feld in Abschnitt $H^{(i)}$ ist und auf keiner Spur wird dieses Feld am Ende der Simulation eins Schrittes von $M$ mit $\#$ beschrieben sein.
+            \item In jedem Abschnitt kommen erst die Platzhaltersymbol $\#$ dann die "normalen" Symbole.
+            \item Jeder Abschnitt auf jeder Spur $i \in [h]$, außer $H^{(i)}$, wird beim ersten Verwenden in dem Sinne als halb leer initialisiert, sodass er zur Hälfte mit $\#$ beschrieben und zu Hälfte mit $\square$ beschrieben wird.
+            \item Die Abschnitte $R_j^{(i)}$ und $L_j^{(i)}$ heißen aller, wenn alle Symbole $= \#$, ??haltbar falls die Hälfte der Symbole $= \#$ und voll, falls kein Symbol $= \#$
+        \end{itemize}
+    \end{itemize}
+    \textbf{Beispiel:} Genau am Anfang, Spur 1 bei Eingabe $w \in \{0, 1\}^*$
+    
+    % Grafik hier einfügen
+    
+    Zu Beginn wird diese Struktur auf der ersten Spur erzeugt.
+    
+    \begin{itemize}
+        \item Zu jeder Zeit sind alle Informationen zu der TM $M$ vorhanden.
+        \item Bandbewegungen nach links (die Kopfbewegung nach rechts entsprechen) werden durch Manipulation der Spur $i \in [h]$ wie folgt simuliert:
+        \begin{enumerate}
+            \item Für das minimale $j_0 \geq i$, sodass $R_{j_0}^{(i)}$ nicht leer ist, ersetzt das erste Symbol der rechten Hälfte von $R_{j_0}^(i)$ das Symbol im Abschnitt $H^{(i)}$ und die $2^{j_0-1}-1$ weiteren Symbole der rechten Hälfte von $R_{j_0}{(i)}$ werden zu unveränderter Reihenfolge auf die rechten Hälften von $R_1^{(i)}, ..., R_{j_0}^{(i)}$
+            \item Die von $\#$ verschiedenen Symbole der Abschnitte $L_1^{(i)}, ..., L_{j_0}^{(i)}$ werden zu unveränderter Reihenfolge auf dem Abschnitt $L_{j_0}^{(i)}$ und die rechten Hälften der Abschnitte $L_1^{(i)}, ..., L_{j_0 - 1}^{(i)}$ geschrieben und alle Symbole in den linken Hälften der Abschnitte $L_1^{(i)}, ..., L_{j_0}^{(i)}$ werden durch $\#$ überschrieben.
+            \item Schließlich wird das um ersetzte Symbol, das zuvor auf $H^{(i)}$ stand, in die rechte Hälfte des Abschnitts $L_1^{(i)}$ geschrieben.
+        \end{enumerate}
+        
+        % Grafik hier einfügen
+        
+        
+        \item Bandbewegungen nach rechts werden analog simuliert
+        \item Bandbewegungen lassen sich eindeutig in dieser Weise simulieren, dafür alle $j \geq i$ zu jedem uzahs für die Abschnitte $R_j^{(i)}$ und $L_j^{(i)}$ folgendes gilt: Entweder sind beide Abschnitte haltbar oder genau einer ist voll und eines leer.
+        \item Die Laufzeit von $U$ ergibt sich im wesentlichen aus der Simulation der Bandbewegungen. Bei einer Bandbewegung ist die Anzahl der zu betrachtenden Felder $O(\underset{j=1}{\overset{j_o}{\sum}} 2^j) = O(2^{j_0})$ für ein $j_0 \geq 1$. Damit das zweite Band funktioniert dies in Zeit $=(2^{j_0})$. Ist $t$ die Laufzeit von $M$ zur Eingabe $w$, so ist eine solche Bandbewegung höchstens $\lfloor \nicefrac{t}{2^{j_0}} \rfloor$ mit durchzuführen. Als Laufzeit ergibt sich somit bis auf konst. Faktor
+        $$\underset{j_0 = 1}{\overset{\log_2 t}{\sum}} \frac{t}{2^{j_0}} * j_0 = t \log_2 t $$
+    \end{itemize}
+\end{satz}

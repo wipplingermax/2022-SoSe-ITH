@@ -66,6 +66,25 @@ pdfauthor=\@author
     \end{shaded}
 }
 
+\newtheoremstyle{tsbesch}
+{}{}{}{}{\bfseries}{}{\newline}{}
+\theoremstyle{tsbesch}
+\newtheorem{vl@besch}[vl@defn]{Beschreibung }
+\newenvironment{besch}{    
+    \vspace{0.3em}
+    \colorlet{shadecolor}{gray!10}
+    \begin{shaded}
+        \vspace{-0.5em}
+        \begin{vl@besch}
+        \end{vl@besch}
+        \vspace{-2em}
+}{
+        \vspace{0.3em}
+    \end{shaded}
+}
+
+
+
 
 \newtheoremstyle{tssatz}
 {}{}{}{}{\bfseries}{}{\newline}
@@ -132,7 +151,7 @@ pdfauthor=\@author
 {\hspace{-1.3em}\colorbox{magenta!100}{\color{white}\makebox[16.5cm][l]{\thmname{#1}\thmnumber{#2}\quad\thmnote{(#3)}\ifstrempty{#3}{}{}}}}
 % New Environments
 \theoremstyle{tskollar}
-\newtheorem{vl@kollar}[vl@defn]{Kollar }
+\newtheorem{vl@kollar}[vl@defn]{Korollar }
 \newenvironment{kollar}[1]{  
     \vspace{0.7em}
     \colorlet{shadecolor}{magenta!10}
